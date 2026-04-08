@@ -216,6 +216,11 @@ export default function App() {
     { name: "Mohamed Kardosha", role: "AI Engineer", img: team3Img }
   ];
 
+  // Repeat inner pages to make the book feel thicker.
+  const activeBookPages = selectedBook
+    ? Array.from({ length: 3 }, () => selectedBook.pages).flat()
+    : [];
+
   const testimonials = [
     {
       rating: "5.0",
@@ -658,14 +663,19 @@ export default function App() {
 
             <div className="modal-flipbook-container">
               <HTMLFlipBook
-                width={360}
-                height={520}
-                size="stretch"
-                minWidth={280}
-                maxWidth={540}
-                minHeight={420}
-                maxHeight={760}
+                width={420}
+                height={560}
+                size="fixed"
+                minWidth={420}
+                maxWidth={420}
+                minHeight={560}
+                maxHeight={560}
                 showCover
+                usePortrait={false}
+                drawShadow
+                maxShadowOpacity={0.45}
+                showPageCorners
+                flippingTime={900}
                 className="real-flipbook"
                 mobileScrollSupport
               >
@@ -677,11 +687,19 @@ export default function App() {
                     </div>
                   </div>
                 </Page>
-                {selectedBook.pages.map((pageImg, pageIndex) => (
+                {activeBookPages.map((pageImg, pageIndex) => (
                   <Page key={`${selectedBook.id}-page-${pageIndex}`}>
                     <img src={pageImg} alt={`صفحة ${pageIndex + 1} من ${selectedBook.title}`} className="page-image" />
                   </Page>
                 ))}
+                <Page key={`${selectedBook.id}-back-cover`}>
+                  <div className="book-cover-solid">
+                    <img src={selectedBook.coverImg} alt={`الغلاف الخلفي - ${selectedBook.title}`} className="cover-image-bg" />
+                    <div className="cover-overlay">
+                      <h2 className="cover-title">النهاية</h2>
+                    </div>
+                  </div>
+                </Page>
               </HTMLFlipBook>
             </div>
           </div>
