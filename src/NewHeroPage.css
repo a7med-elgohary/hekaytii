@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800&display=swap');
+
+.new-hero-container {
+  font-family: 'Tajawal', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.new-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 4rem;
+  z-index: 10;
+}
+
+.new-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1e1b4b;
+}
+
+.new-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-login {
+  color: #4b5563;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.btn-dark-purple {
+  background-color: #2e1065;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.btn-dark-purple.lg {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+}
+
+.btn-dark-purple:hover {
+  background-color: #4c1d95;
+  transform: translateY(-2px);
+}
+
+.btn-outline-play {
+  background: white;
+  color: #1e1b4b;
+  border: 1px solid #e2e8f0;
+  border-radius: 50px;
+  padding: 0.75rem 1.75rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  font-family: 'Tajawal', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-play:hover {
+  background: #f8fafc;
+  transform: translateY(-2px);
+}
+
+.play-icon-circle {
+  background: #2e1065;
+  color: white;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.7rem;
+}
+
+/* ==================================
+   SPLIT LAYOUT 
+   ================================== */
+.new-hero-split {
+  flex: 1;
+  display: flex;
+  flex-direction: row-reverse;
+  /* Puts Text (1st) on RIGHT and Image (2nd) on LEFT */
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  gap: 2rem;
+}
+
+.show-on-mobile {
+  display: none !important;
+}
+
+/* LEFT SIDE: Image */
+.hero-image-side {
+  flex: 1.5;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+}
+
+.split-hero-img {
+  width: 100%;
+  max-height: 100vh;
+  object-fit: contain;
+  /* ensures image isn't cropped but scales perfectly */
+  transform: scale(1.1) translateY(-5%);
+  /* scales it up smoothly and pulls it upward */
+}
+
+/* RIGHT SIDE: Text */
+.hero-text-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  /* Align elements to the right edge */
+  text-align: right;
+  /* Align text inside elements to the right */
+}
+
+.hero-text-side h1 {
+  font-size: 3.5rem;
+  color: #1e1b4b;
+  margin-bottom: 1rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.hero-text-side .subtitle {
+  font-size: 1.3rem;
+  color: #64748b;
+  margin-bottom: 2.5rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.hero-buttons-side {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: flex-end;
+  /* Align buttons cluster to the right */
+}
+
+/* Floating Animations */
+.floating {
+  animation: float-3d 6s ease-in-out infinite;
+}
+
+@keyframes float-3d {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@media (max-width: 960px) {
+  .show-on-mobile {
+    display: flex !important;
+  }
+
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  .new-hero-container {
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .new-navbar {
+    padding: 1rem;
+  }
+
+  .new-logo {
+    font-size: 1.2rem;
+  }
+
+  .new-nav-actions {
+    gap: 0.8rem;
+  }
+
+  .nav-login {
+    font-size: 1rem;
+  }
+
+  .btn-dark-purple {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .new-hero-split {
+    flex-direction: column;
+    /* Text(1st) -> Image(2nd) -> MobileButtons(3rd) */
+    padding: 2rem 1rem 1rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .hero-image-side {
+    width: 100%;
+    margin-bottom: 1rem;
+    order: -1;
+    /* Moves image to the very top on mobile */
+  }
+
+  .hero-text-side {
+    align-items: center;
+    text-align: center;
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .hero-text-side h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-text-side .subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-buttons-side {
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .btn-outline-play,
+  .btn-dark-purple.lg {
+    width: 100%;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  .split-hero-img {
+    max-height: 45vh;
+    transform: scale(1) translateY(0);
+  }
+}
