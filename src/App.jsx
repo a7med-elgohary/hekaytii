@@ -39,14 +39,24 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
   const [isClosing, setIsClosing] = useState(false);
+  const [isBookReady, setIsBookReady] = useState(false);
 
   const handleCloseBook = () => {
     setIsClosing(true);
     setTimeout(() => {
       setSelectedBook(null);
       setIsClosing(false);
-    }, 1500); // Wait for the animation to complete
+      setIsBookReady(false);
+    }, 1500); 
   };
+
+  useEffect(() => {
+    if (selectedBook && !isClosing) {
+      const timer = setTimeout(() => setIsBookReady(true), 300);
+      return () => clearTimeout(timer);
+    }
+    return undefined;
+  }, [selectedBook, isClosing]);
 
   const libraryBooks = [
     {
@@ -713,29 +723,32 @@ export default function App() {
         >
           <div className="book-modal-content">
             <div className="modal-flipbook-container">
-              <HTMLFlipBook
-                width={420}
-                height={560}
-                size="fixed"
-                minWidth={420}
-                maxWidth={420}
-                minHeight={560}
-                maxHeight={560}
-                showCover={false}
-                usePortrait={false}
-                drawShadow
-                maxShadowOpacity={0.45}
-                showPageCorners
-                flippingTime={900}
-                className="real-flipbook"
-                mobileScrollSupport
-              >
-                {activeBookPages.map((pageImg, pageIndex) => (
-                  <Page key={`${selectedBook.id}-page-${pageIndex}`}>
-                    <img src={pageImg} alt={`صفحة ${pageIndex + 1} من ${selectedBook.title}`} className="page-image" />
-                  </Page>
-                ))}
-              </HTMLFlipBook>
+              {isBookReady && (
+                <HTMLFlipBook
+                  key={selectedBook.id}
+                  width={420}
+                  height={560}
+                  size="fixed"
+                  minWidth={420}
+                  maxWidth={420}
+                  minHeight={560}
+                  maxHeight={560}
+                  showCover={false}
+                  usePortrait={false}
+                  drawShadow
+                  maxShadowOpacity={0.45}
+                  showPageCorners
+                  flippingTime={900}
+                  className="real-flipbook"
+                  mobileScrollSupport
+                >
+                  {activeBookPages.map((pageImg, pageIndex) => (
+                    <Page key={`${selectedBook.id}-page-${pageIndex}`}>
+                      <img src={pageImg} alt={`صفحة ${pageIndex + 1} من ${selectedBook.title}`} className="page-image" />
+                    </Page>
+                  ))}
+                </HTMLFlipBook>
+              )}
             </div>
           </div>
         </div>
