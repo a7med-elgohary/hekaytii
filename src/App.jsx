@@ -107,7 +107,7 @@ export default function App() {
         if (bookLabelRef.current) {
           const lRect = bookLabelRef.current.getBoundingClientRect();
           dstX = lRect.left + lRect.width / 2;
-          dstY = lRect.bottom + 140; // Raised significantly
+          dstY = lRect.bottom + 230; // Pushed down further (previously 140)
         }
 
         // ── Progress tied to how much user scrolled INTO the section ──
