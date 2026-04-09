@@ -9,6 +9,16 @@ import team1Img from './assets/team_1.png';
 import team2Img from './assets/team_2.png';
 import team3Img from './assets/team_3.png';
 import aboutImg from './assets/hero3.png';
+import ahmedElgoharyCartoon from './assets/ahmed_elgohary_cartoon.png';
+import basmalaCartoon from './assets/basmala_cartoon.png';
+import abdulrahmanCartoon from './assets/abdulrahman_cartoon.png';
+import aliCartoon from './assets/ali_cartoon.png';
+import hebaCartoon from './assets/heba_cartoon.png';
+import omarCartoon from './assets/omar_cartoon.png';
+import reemCartoon from './assets/reem_cartoon.png';
+import marievCartoon from './assets/mariev_cartoon.png';
+import mohamedCartoon from './assets/mohamed_cartoon.png';
+import quizStepImg from './assets/quiz_step.png';
 import HomeParallaxImg from './assets/Home.png';
 import dreamyStarsImg from "./assets/dreamy_stars.png";
 import bookPage1 from './assets/book_page_1.png';
@@ -28,6 +38,15 @@ const Page = React.forwardRef((props, ref) => {
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleCloseBook = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setSelectedBook(null);
+      setIsClosing(false);
+    }, 1500); // Wait for the animation to complete
+  };
 
   const libraryBooks = [
     {
@@ -84,11 +103,11 @@ export default function App() {
 
         // Destination: center of the label text + offset
         let dstX = viewW / 2;
-        let dstY = viewH / 2 + 140;
+        let dstY = viewH / 2 + 80; 
         if (bookLabelRef.current) {
           const lRect = bookLabelRef.current.getBoundingClientRect();
           dstX = lRect.left + lRect.width / 2;
-          dstY = lRect.bottom + 250; // Stack rests prominently below text
+          dstY = lRect.bottom + 140; // Raised significantly
         }
 
         // ── Progress tied to how much user scrolled INTO the section ──
@@ -205,15 +224,15 @@ export default function App() {
   }, [selectedBook]);
 
   const teamMembers = [
-    { name: "Mariev Ashea", role: "Flutter Developer", img: team2Img },
-    { name: "Reem Albadwy", role: "AI Engineer", img: team2Img },
-    { name: "Basmala Elshabrawy", role: "Backend Developer", img: team2Img },
-    { name: "Heba Tarek", role: "Flutter Developer", img: team2Img },
-    { name: "Ahmed Elgohary", role: "Backend Developer", img: team1Img },
-    { name: "Omar Kamal", role: "Business Analyst", img: team3Img },
-    { name: "Abdulrahman Shalan", role: "Business Analyst", img: team3Img },
-    { name: "Ali Sakr", role: "AI Engineer", img: team1Img },
-    { name: "Mohamed Kardosha", role: "AI Engineer", img: team3Img }
+    { name: "Mariev Ashea", role: "Flutter Developer", img: marievCartoon, linkedin: "https://www.linkedin.com/in/mariev-asheaa-85220b2b3/" },
+    { name: "Reem Albadwy", role: "AI Engineer", img: reemCartoon, linkedin: "https://www.linkedin.com/in/reem-albadwy-944262266/" },
+    { name: "Basmala Elshabrawy", role: "Backend Developer", img: basmalaCartoon, linkedin: "https://www.linkedin.com/in/basmala-mohammed-bb8131252/" },
+    { name: "Heba Tarek", role: "Flutter Developer", img: hebaCartoon, linkedin: "https://www.linkedin.com/in/heba-tarek-cce/" },
+    { name: "Ahmed Elgohary", role: "Backend Developer", img: ahmedElgoharyCartoon, linkedin: "https://www.linkedin.com/in/ahmed-elgohary7" },
+    { name: "Omar Kamal", role: "Business Analyst", img: omarCartoon, linkedin: "https://www.linkedin.com/in/omarkamal204/" },
+    { name: "Abdulrahman Shalan", role: "Business Analyst", img: abdulrahmanCartoon, linkedin: "https://www.linkedin.com/in/shalan1/" },
+    { name: "Ali Sakr", role: "AI Engineer", img: aliCartoon, linkedin: "https://www.linkedin.com/in/ali-monir-sakr/" },
+    { name: "Mohamed Kardosha", role: "AI Engineer", img: mohamedCartoon, linkedin: "https://www.linkedin.com/in/mohamedkardosha/" }
   ];
 
   // Repeat inner pages to make the book feel thicker.
@@ -264,8 +283,9 @@ export default function App() {
 
         <nav id="mobile-nav" className={`navbar-links ${mobileMenuOpen ? 'open' : ''}`}>
           <a href="#about" className="nav-link" onClick={() => setMobileMenuOpen(false)}>من نحن</a>
-          <a href="#how-it-works" className="nav-link" onClick={() => setMobileMenuOpen(false)}>المميزات</a>
-          <a href="#create" className="nav-link" onClick={() => setMobileMenuOpen(false)}>الأسعار</a>
+          <a href="#how-it-works" className="nav-link" onClick={() => setMobileMenuOpen(false)}>كيف يعمل</a>
+          <a href="#testimonials" className="nav-link" onClick={() => setMobileMenuOpen(false)}>آراء العملاء</a>
+          <a href="#team" className="nav-link" onClick={() => setMobileMenuOpen(false)}>فريق العمل</a>
           <a href="#contact" className="nav-link" onClick={() => setMobileMenuOpen(false)}>تواصل معنا</a>
         </nav>
 
@@ -305,7 +325,7 @@ export default function App() {
           </h1>
           <p className="hero-desc">
             حكايتي هو دليلك لعالم من السحر والخيال، تطبيق مدعوم بالذكاء الاصطناعي
-            يحول صورة طفلك إلى قصة أطفال عربية مخصصة يكون فيها طفلك هو البطل.
+            يحول صورة طفلك إلى قصة أطفال عربية مخصصة يكون فيها طفلك هو البطل، مع اختبارات ذكاء تفاعلية بعد كل قصة لتعزيز مهارات التعلم والفهم.
           </p>
 
           <div className="hero-buttons shop-badges-only">
@@ -356,7 +376,7 @@ export default function App() {
       <section id="how-it-works" className="how-section" ref={howSectionRef}>
         <div className="section-header reveal-up">
           <h2 className="section-title">كيف <span className="text-gradient">يعمل التطبيق</span></h2>
-          <p className="section-subtitle">رحلة سحرية من 4 خطوات تحول طفلك إلى بطل حكايته الأولى</p>
+          <p className="section-subtitle">رحلة سحرية من ٥ خطوات تحول طفلك إلى بطل حكايته وتنمّي مهاراته</p>
         </div>
 
         <div className="cards-fan">
@@ -372,7 +392,11 @@ export default function App() {
             </div>
           </div>
 
-          <div className="fan-arrow">←</div>
+          <div className="fan-arrow">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          </div>
 
           <div className="fan-card fan-card-2 reveal-scale">
             <div className="fan-card-img">
@@ -385,7 +409,11 @@ export default function App() {
             </div>
           </div>
 
-          <div className="fan-arrow">←</div>
+          <div className="fan-arrow">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          </div>
 
           <div className="fan-card fan-card-3 reveal-scale">
             <div className="fan-card-img">
@@ -398,7 +426,11 @@ export default function App() {
             </div>
           </div>
 
-          <div className="fan-arrow">←</div>
+          <div className="fan-arrow">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          </div>
 
           <div className="fan-card fan-card-4 reveal-scale">
             <div className="fan-card-img fan-card-img-book">
@@ -413,16 +445,46 @@ export default function App() {
             </div>
           </div>
 
+          <div className="fan-arrow">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          </div>
+
+          <div className="fan-card fan-card-5 reveal-scale">
+            <div className="fan-card-img">
+              <img src={quizStepImg} alt="اختبار وتعلّم" />
+            </div>
+            <div className="fan-card-num">٥</div>
+            <div className="fan-card-body">
+              <h3>اختبر وتعلّم</h3>
+              <p>بعد كل قصة، يوجد اختبار تفاعلي على الأحداث لضمان الفهم وتنمية الذكاء.</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
 
       {/* SCROLL-ZOOM BOOK SECTION — gives scroll space */}
-      <div id="interactive-book" className="scroll-zoom-container" ref={scrollZoomRef}>
+      <div id="library" className="scroll-zoom-container" ref={scrollZoomRef}>
         <div className="scroll-zoom-sticky">
           <div className="scroll-zoom-label" ref={bookLabelRef}>
             <h2 className="section-title">مكتبة <span className="text-gradient">السحر</span></h2>
             <p className="section-subtitle">إليك لمحة عن القصص المذهلة — مرِّر الماوس فوق الكتب واضغط لتصفحها</p>
+          </div>
+
+          <div className="click-hint">
+            <div className="hand-icon">
+              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10 11V6a2 2 0 0 1 2-2 2 2 0 0 1 2 2v5" />
+                <path d="M14 7v3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v3" />
+                <path d="M18 10v4a2 2 0 0 1 2-2 2 2 0 0 1 2 2v5a4 4 0 0 1-4 4h-7a6 6 0 0 1-6-6v-1.5" />
+                <path d="M6 13V8.1a2 2 0 0 1 2-2 2 2 0 0 1 2 2V11" />
+              </svg>
+              <div className="ripple"></div>
+            </div>
+            <span>اضغط على قصة لتبدأ القراءة</span>
           </div>
         </div>
       </div>
@@ -430,8 +492,8 @@ export default function App() {
       {/* FLYING STACK OF 3 BOOKS */}
       <div className="fixed-flying-stack" ref={fixedBookRef}>
         {libraryBooks.map((book, idx) => (
-          <div 
-            key={book.id} 
+          <div
+            key={book.id}
             className={`stack-book stack-book-${idx + 1}`}
             role="button"
             tabIndex={0}
@@ -544,6 +606,11 @@ export default function App() {
             {teamMembers.map((member, index) => (
               <div className="team-card" key={`track1-${index}`}>
                 <div className="team-card-bg">
+                  <a href={member.linkedin} className="team-social-link" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                  </a>
                   <img src={member.img} alt={`${member.name} مسطح`} className="team-img-flat" />
                   <div className="team-info">
                     <h3>{member.name}</h3>
@@ -555,11 +622,15 @@ export default function App() {
             ))}
           </div>
 
-          {/* Track 2 (Duplicate for seamless loop) */}
           <div className="team-marquee-track" aria-hidden="true">
             {teamMembers.map((member, index) => (
               <div className="team-card" key={`track2-${index}`}>
                 <div className="team-card-bg">
+                  <a href={member.linkedin} className="team-social-link" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                  </a>
                   <img src={member.img} alt={`${member.name} مسطح`} className="team-img-flat" />
                   <div className="team-info">
                     <h3>{member.name}</h3>
@@ -569,17 +640,6 @@ export default function App() {
                 <img src={member.img} alt={`${member.name} واقف`} className="team-img-stand" />
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="create" className="cta-section">
-        <div className="cta-box reveal-up">
-          <h2>جاهز تبدأ قصة طفلك؟</h2>
-          <p>اختر نمط القصة، حمّل صورة طفلك، وخلال ثوانٍ تحصل على قصة عربية مخصصة.</p>
-          <div className="cta-buttons">
-            <a href="#demo-video" className="btn btn-primary rounded-pill">شاهد العرض أولاً</a>
-            <a href="#contact" className="btn btn-outline rounded-pill">تواصل مع الفريق</a>
           </div>
         </div>
       </section>
@@ -601,24 +661,23 @@ export default function App() {
               <li><a href="#about">من نحن</a></li>
               <li><a href="#how-it-works">كيف يعمل التطبيق</a></li>
               <li><a href="#testimonials">آراء العملاء</a></li>
-              <li><a href="#create">ابدأ الآن</a></li>
             </ul>
           </div>
 
           <div className="footer-social">
             <h4>تواصل معنا</h4>
             <div className="social-icons">
-              <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" className="social-icon" aria-label="LinkedIn">
-                <img src="https://cdn.simpleicons.org/linkedin/4b5563" alt="" className="social-icon-img" />
+              <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" className="social-icon linkedin" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
               </a>
-              <a href="https://x.com/" target="_blank" rel="noreferrer" className="social-icon" aria-label="X">
-                <img src="https://cdn.simpleicons.org/x/4b5563" alt="" className="social-icon-img" />
+              <a href="https://x.com/" target="_blank" rel="noreferrer" className="social-icon x-twitter" aria-label="X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
               </a>
-              <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" className="social-icon" aria-label="Instagram">
-                <img src="https://cdn.simpleicons.org/instagram/4b5563" alt="" className="social-icon-img" />
+              <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" className="social-icon instagram" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
               </a>
-              <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" className="social-icon" aria-label="Facebook">
-                <img src="https://cdn.simpleicons.org/facebook/4b5563" alt="" className="social-icon-img" />
+              <a href="https://www.facebook.com/share/1E8TxEBuhj/?mibextid=wwXIfr" target="_blank" rel="noreferrer" className="social-icon facebook" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.791-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
               </a>
             </div>
           </div>
@@ -642,25 +701,17 @@ export default function App() {
 
       {selectedBook && (
         <div
-          className="book-modal-overlay"
+          className={`book-modal-overlay ${isClosing ? 'is-closing' : ''}`}
           role="dialog"
           aria-modal="true"
           aria-label={`قراءة قصة ${selectedBook.title}`}
           onClick={(event) => {
             if (event.target === event.currentTarget) {
-              setSelectedBook(null);
+              handleCloseBook();
             }
           }}
         >
           <div className="book-modal-content">
-            <button
-              type="button"
-              className="book-modal-close"
-              onClick={() => setSelectedBook(null)}
-            >
-              إغلاق
-            </button>
-
             <div className="modal-flipbook-container">
               <HTMLFlipBook
                 width={420}
@@ -670,7 +721,7 @@ export default function App() {
                 maxWidth={420}
                 minHeight={560}
                 maxHeight={560}
-                showCover
+                showCover={false}
                 usePortrait={false}
                 drawShadow
                 maxShadowOpacity={0.45}
@@ -679,27 +730,11 @@ export default function App() {
                 className="real-flipbook"
                 mobileScrollSupport
               >
-                <Page key={`${selectedBook.id}-cover`}>
-                  <div className="book-cover-solid">
-                    <img src={selectedBook.coverImg} alt={selectedBook.title} className="cover-image-bg" />
-                    <div className="cover-overlay">
-                      <h2 className="cover-title">{selectedBook.title}</h2>
-                    </div>
-                  </div>
-                </Page>
                 {activeBookPages.map((pageImg, pageIndex) => (
                   <Page key={`${selectedBook.id}-page-${pageIndex}`}>
                     <img src={pageImg} alt={`صفحة ${pageIndex + 1} من ${selectedBook.title}`} className="page-image" />
                   </Page>
                 ))}
-                <Page key={`${selectedBook.id}-back-cover`}>
-                  <div className="book-cover-solid">
-                    <img src={selectedBook.coverImg} alt={`الغلاف الخلفي - ${selectedBook.title}`} className="cover-image-bg" />
-                    <div className="cover-overlay">
-                      <h2 className="cover-title">النهاية</h2>
-                    </div>
-                  </div>
-                </Page>
               </HTMLFlipBook>
             </div>
           </div>
