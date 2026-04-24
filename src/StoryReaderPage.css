@@ -1,0 +1,233 @@
+.srp-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #020617;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(30, 58, 138, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(88, 28, 135, 0.2) 0%, transparent 50%);
+  color: #f8fafc;
+  font-family: 'Tajawal', sans-serif;
+  direction: rtl;
+}
+
+.srp-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 3rem;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.srp-logo {
+  font-size: 1.8rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #60a5fa, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  cursor: pointer;
+}
+
+.srp-nav-info h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  color: #e2e8f0;
+}
+
+.srp-back-btn {
+  padding: 0.6rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 99px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.srp-back-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.srp-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 2.5rem;
+}
+
+.srp-book-container {
+  perspective: 1500px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.srp-page {
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+}
+
+.srp-page-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Cover Styling */
+.srp-cover {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.srp-cover-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+}
+
+.srp-cover-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+}
+
+.srp-cover-title {
+  font-size: 2.8rem;
+  color: #fff;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  margin-bottom: 1rem;
+}
+
+.srp-cover-badge {
+  background: #f59e0b;
+  color: #000;
+  padding: 0.5rem 1.5rem;
+  border-radius: 99px;
+  font-weight: bold;
+}
+
+/* Inner Page Styling */
+.srp-inner-page {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.srp-page-image {
+  width: 100%;
+  height: 65%;
+  object-fit: cover;
+}
+
+.srp-page-text-container {
+  flex: 1;
+  padding: 2rem;
+  position: relative;
+  background: #fdfdfd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.srp-page-text {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: #1e293b;
+  text-align: center;
+  margin: 0;
+}
+
+.srp-page-num {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+/* Back Cover */
+.srp-back-cover {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+}
+
+.srp-back-content h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.srp-re-btn {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background: #6366f1;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Controls */
+.srp-controls {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background: rgba(15, 23, 42, 0.6);
+  padding: 0.8rem 2rem;
+  border-radius: 99px;
+  backdrop-filter: blur(8px);
+}
+
+.srp-ctrl-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: opacity 0.2s;
+}
+
+.srp-ctrl-btn:hover {
+  opacity: 0.7;
+}
+
+.srp-page-indicator {
+  font-size: 1rem;
+  color: #94a3b8;
+}
+
+@media (max-width: 768px) {
+  .srp-flipbook {
+    width: 100% !important;
+    height: 60vh !important;
+  }
+}
