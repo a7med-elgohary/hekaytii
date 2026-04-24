@@ -1,0 +1,870 @@
+/* ═══════════════════════════════════════════
+   STORY CREATOR FULL PAGE STYLES - LIGHT THEME
+════════════════════════════════════════════ */
+
+.scp-layout {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+  font-family: 'Tajawal', 'Cairo', sans-serif;
+  background-color: #f8fafc;
+  position: relative;
+  overflow: hidden;
+  color: #1e293b;
+}
+
+/* ── Top Navbar ── */
+.scp-navbar {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 5%;
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+}
+.scp-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+.scp-logo-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #7c3aed, #db2777);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: white;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+.scp-logo-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+.scp-btn-outline {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  padding: 8px 20px;
+  border-radius: 30px;
+  color: #475569;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.scp-btn-outline:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+  border-color: #94a3b8;
+}
+
+/* ── Main Container Split Layout ── */
+.scp-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px 5% 30px;
+  gap: 60px;
+  align-items: flex-start;
+  height: calc(100vh - 73px);
+  overflow: hidden;
+}
+
+/* ── Right Sidebar (Steps & Intro) ── */
+.scp-sidebar {
+  width: 35%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.scp-sidebar-content {
+  /* no need for sticky since no scroll */
+}
+.scp-page-title {
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-weight: 900;
+  margin: 0 0 15px;
+  line-height: 1.3;
+  color: #0f172a;
+}
+.scp-page-title .text-gradient {
+  background: linear-gradient(135deg, #9333ea, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.scp-page-subtitle {
+  color: #64748b;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+/* ── Vertical Stepper ── */
+.scp-stepper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.scp-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+.scp-step-item.active { opacity: 1; }
+.scp-step-item.past { opacity: 0.9; }
+
+.scp-step-icon-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.scp-step-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  border: 2px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  z-index: 2;
+  transition: all 0.3s ease;
+  color: #475569;
+}
+.scp-step-item.active .scp-step-icon {
+  background: linear-gradient(135deg, #7c3aed, #db2777);
+  border-color: #c084fc;
+  color: white;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+  transform: scale(1.1);
+}
+.scp-step-item.past .scp-step-icon {
+  background: #10b981;
+  border-color: #34d399;
+  color: white;
+}
+.scp-step-line {
+  position: absolute;
+  top: 44px;
+  bottom: -20px;
+  width: 2px;
+  background: #e2e8f0;
+  z-index: 1;
+}
+.scp-step-item:last-child .scp-step-line { display: none; }
+.scp-step-item.past .scp-step-line { background: #10b981; }
+
+.scp-step-text { padding-top: 5px; }
+.scp-step-text h4 {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+.scp-step-text p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+/* ── Left Main Area (Form) ── */
+.scp-main {
+  width: 65%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.scp-form-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 30px 40px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.scp-step-content-area {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+.scp-step-content-area::-webkit-scrollbar { width: 5px; }
+.scp-step-content-area::-webkit-scrollbar-track { background: transparent; }
+.scp-step-content-area::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+/* ── Step Views Generic ── */
+.scp-view-header {
+  margin-bottom: 40px;
+}
+.scp-view-header h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0 0 10px;
+  color: #0f172a;
+}
+.scp-view-header p {
+  font-size: 1.05rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* ── Step 1 Form Elements ── */
+.scp-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+.scp-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.scp-input-group.full-width {
+  grid-column: 1 / -1;
+}
+.scp-input-group label {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.scp-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.scp-input-icon {
+  position: absolute;
+  right: 18px;
+  font-size: 1.3rem;
+  pointer-events: none;
+}
+.scp-input {
+  width: 100%;
+  padding: 16px 50px 16px 20px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 16px;
+  color: #0f172a;
+  font-size: 1.1rem;
+  font-family: inherit;
+  transition: all 0.2s;
+  outline: none;
+}
+.scp-input::placeholder { color: #94a3b8; }
+.scp-input:focus {
+  border-color: #9333ea;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(147, 51, 234, 0.1);
+}
+.scp-input.error { border-color: #ef4444; }
+
+.scp-error-msg {
+  color: #ef4444;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Pills (Age) */
+.scp-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.scp-pill {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  color: #475569;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.scp-pill:hover {
+  background: #f1f5f9;
+  border-color: #9333ea;
+  color: #0f172a;
+}
+.scp-pill.selected {
+  background: linear-gradient(135deg, #7c3aed, #db2777);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Gender Cards */
+.scp-gender-cards {
+  display: flex;
+  gap: 15px;
+}
+.scp-gender-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.scp-gender-emoji { font-size: 2.5rem; }
+.scp-gender-text { font-size: 1.1rem; font-weight: 700; color: #475569; }
+.scp-gender-card:hover { background: #f1f5f9; border-color: #9333ea; }
+.scp-gender-card.selected {
+  background: #fdf4ff;
+  border-color: #d946ef;
+  box-shadow: 0 4px 20px rgba(217, 70, 239, 0.15);
+}
+.scp-gender-card.selected .scp-gender-text { color: #a21caf; }
+
+/* ── Step 2 Topics Grid ── */
+.scp-topics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.scp-topic-card {
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 24px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+}
+.scp-topic-emoji {
+  font-size: 3rem;
+  transition: transform 0.3s;
+}
+.scp-topic-label {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #475569;
+}
+.scp-topic-check {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 24px;
+  height: 24px;
+  background: var(--topic-color, #9333ea);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s;
+}
+.scp-topic-card:hover {
+  background: #f1f5f9;
+  border-color: var(--topic-color, #9333ea);
+  transform: translateY(-5px);
+}
+.scp-topic-card:hover .scp-topic-emoji { transform: scale(1.1); }
+.scp-topic-card.selected {
+  border-color: var(--topic-color, #9333ea);
+  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06), inset 0 0 0 1px var(--topic-color, #9333ea);
+  transform: translateY(-8px);
+}
+.scp-topic-card.selected .scp-topic-check { opacity: 1; transform: scale(1); }
+.scp-topic-card.selected .scp-topic-label { color: var(--topic-color, #9333ea); }
+
+/* ── Step 3 Lengths ── */
+.scp-lengths-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.scp-length-card {
+  display: flex;
+  align-items: center;
+  padding: 24px 30px;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  text-align: right;
+}
+.scp-length-icon {
+  font-size: 2.5rem;
+  margin-left: 20px;
+}
+.scp-length-info { flex: 1; }
+.scp-length-info h3 { margin: 0 0 5px; font-size: 1.2rem; color: #1e293b; font-weight: 800; }
+.scp-length-info p { margin: 0; color: #64748b; font-size: 1rem; }
+
+.scp-length-radio {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  background: #fff;
+}
+.scp-radio-inner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #9333ea;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.2s;
+}
+.scp-length-card:hover {
+  background: #f1f5f9;
+  border-color: #c084fc;
+}
+.scp-length-card.selected {
+  background: #fdf4ff;
+  border-color: #d946ef;
+}
+.scp-length-card.selected .scp-length-radio { border-color: #d946ef; }
+.scp-length-card.selected .scp-radio-inner { opacity: 1; transform: scale(1); }
+
+/* ── Step 4 Dropzone ── */
+.scp-dropzone {
+  border: 3px dashed #cbd5e1;
+  border-radius: 24px;
+  padding: 50px 30px;
+  text-align: center;
+  cursor: pointer;
+  background: #f8fafc;
+  transition: all 0.3s;
+  margin-bottom: 20px;
+}
+.scp-dropzone:hover, .scp-dropzone.drag-over {
+  border-color: #9333ea;
+  background: #f3e8ff;
+}
+.scp-dropzone.has-photo {
+  padding: 0;
+  border-style: solid;
+  overflow: hidden;
+}
+.scp-dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.scp-dropzone-icon { font-size: 4rem; }
+.scp-dropzone-content h3 { margin: 0; font-size: 1.4rem; color: #334155; }
+.scp-dropzone-content p { margin: 0; color: #64748b; }
+.scp-btn-fake {
+  margin-top: 10px;
+  background: #fff;
+  border: 1.5px solid #cbd5e1;
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-weight: 700;
+  color: #475569;
+}
+
+.scp-photo-preview-wrap {
+  position: relative;
+  width: 100%;
+  height: 350px;
+}
+.scp-photo-preview-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #f1f5f9;
+}
+.scp-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+}
+.scp-dropzone:hover .scp-photo-overlay { opacity: 1; }
+
+.scp-skip-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.scp-skip-wrap p { margin: 0; color: #64748b; }
+.scp-btn-text {
+  background: none;
+  border: none;
+  color: #9333ea;
+  text-decoration: underline;
+  font-size: 1.1rem;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.scp-btn-text:hover { color: #d946ef; }
+
+/* ── Form Actions (Footer) ── */
+.scp-form-actions {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+.scp-btn-primary, .scp-btn-secondary {
+  padding: 16px 36px;
+  border-radius: 30px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s;
+}
+.scp-btn-primary {
+  background: linear-gradient(135deg, #7c3aed, #db2777);
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.scp-btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(124, 58, 237, 0.4);
+}
+.scp-btn-primary.magic-btn {
+  background: linear-gradient(135deg, #f59e0b, #ef4444, #db2777);
+  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+}
+.scp-btn-secondary {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  color: #475569;
+}
+.scp-btn-secondary:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+/* ── Success/Loading View ── */
+.scp-success-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  min-height: 500px;
+  height: 100%;
+}
+.scp-success-icon-wrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.scp-magic-wand {
+  font-size: 4rem;
+  z-index: 2;
+  animation: float-illustration 3s ease-in-out infinite;
+}
+.scp-pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.5) 0%, transparent 70%);
+  animation: pulse-ring 2s infinite;
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.scp-success-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #f59e0b, #ec4899, #9333ea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 15px;
+}
+.scp-success-desc {
+  font-size: 1.15rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 0 40px;
+  line-height: 1.6;
+}
+.scp-success-desc strong { color: #0f172a; }
+
+.scp-summary-cards {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 24px;
+  gap: 30px;
+  margin-bottom: 40px;
+  max-width: 600px;
+  width: 100%;
+}
+.scp-summary-photo img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #d946ef;
+}
+.scp-summary-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: right;
+}
+.scp-sd-item {
+  font-size: 1.1rem;
+  color: #1e293b;
+  font-weight: 700;
+}
+.scp-sd-item span {
+  color: #64748b;
+  margin-left: 8px;
+  font-weight: 400;
+}
+
+.scp-loader-container {
+  width: 100%;
+  max-width: 500px;
+}
+.scp-loader-bar {
+  width: 100%;
+  height: 12px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+.scp-loader-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7c3aed, #db2777, #f59e0b);
+  border-radius: 10px;
+  animation: loading-anim 2s ease-in-out infinite;
+  background-size: 200% 100%;
+}
+.scp-loader-text {
+  color: #64748b;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* ── Result View ── */
+.scp-result-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  height: 100%;
+}
+.scp-result-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.scp-result-badge {
+  background: #fdf4ff;
+  color: #d946ef;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.scp-result-header h2 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #1e293b;
+  margin: 0;
+}
+
+.scp-result-book-card {
+  display: flex;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+.scp-rbc-image {
+  position: relative;
+  width: 40%;
+  min-height: 250px;
+  background: #cbd5e1;
+}
+.scp-rbc-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.scp-rbc-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.scp-rbc-image:hover .scp-rbc-overlay {
+  opacity: 1;
+}
+.scp-btn-play {
+  background: rgba(255,255,255,0.9);
+  color: #1e293b;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.scp-btn-play:hover {
+  transform: scale(1.05);
+}
+.scp-rbc-details {
+  padding: 30px;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+.scp-rbc-details h3 {
+  font-size: 1.3rem;
+  color: #0f172a;
+  margin: 0 0 10px;
+}
+.scp-rbc-details p {
+  color: #475569;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 20px;
+  flex: 1;
+}
+.scp-rbc-meta {
+  display: flex;
+  gap: 15px;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 15px;
+}
+.scp-rbc-meta span {
+  background: #f1f5f9;
+  color: #64748b;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.scp-result-actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .scp-layout { height: auto; overflow-y: auto; }
+  .scp-container { height: auto; overflow: visible; flex-direction: column; gap: 40px; }
+  .scp-main { height: auto; }
+  .scp-form-card { height: auto; }
+  .scp-step-content-area { overflow-y: visible; }
+  .scp-sidebar { width: 100%; height: auto; flex-direction: row; align-items: center; justify-content: space-between; }
+  .scp-sidebar-content { flex: 1; }
+  .scp-stepper { display: none; }
+  .scp-main { width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .scp-navbar { padding: 15px 5%; }
+  .scp-sidebar { flex-direction: column; text-align: center; }
+  .scp-page-title { font-size: 1.8rem; }
+  
+  .scp-form-card { padding: 25px; min-height: 400px; }
+  .scp-form-grid { grid-template-columns: 1fr; gap: 20px; }
+  .scp-topics-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+  .scp-view-header h2 { font-size: 1.5rem; }
+  
+  .scp-form-actions { flex-direction: column-reverse; gap: 15px; }
+  .scp-btn-primary, .scp-btn-secondary { width: 100%; justify-content: center; }
+  
+  .scp-summary-cards { flex-direction: column; text-align: center; }
+  .scp-summary-details { text-align: center; }
+
+  .scp-result-book-card { flex-direction: column; }
+  .scp-rbc-image { width: 100%; height: 200px; }
+  .scp-rbc-details { width: 100%; }
+  .scp-result-actions { flex-direction: column; }
+  .scp-result-actions button { width: 100% !important; }
+}
