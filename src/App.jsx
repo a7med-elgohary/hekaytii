@@ -329,6 +329,8 @@ export default function App() {
     <div className="app-container dynamic-gradient-bg">
       {/* NAVBAR */}
       <header className={`navbar ${isNavScrolled ? 'scrolled' : ''} ${isNavVisible ? 'visible' : 'hidden'}`}>
+
+        {/* Logo — first in DOM = far RIGHT in RTL */}
         <div className="navbar-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <img src={logoImg} alt="Hekayti Logo" className="logo-img" />
         </div>
@@ -348,7 +350,7 @@ export default function App() {
           </div>
         </nav>
 
-        {/* Desktop-only action buttons */}
+        {/* Desktop action buttons — last in DOM = far LEFT in RTL */}
         <div className="navbar-actions">
           <a href="#demo-video" className="btn btn-outline rounded-pill flex-center">
             {t.navDemo} <span className="play-icon">▶</span>
@@ -356,7 +358,7 @@ export default function App() {
           <button type="button" className="btn btn-primary rounded-pill" onClick={goToStoryCreator}>{t.navCreate}</button>
         </div>
 
-        {/* Mobile Header Actions (Visible on mobile header) */}
+        {/* Mobile Header Actions (language toggle + burger) */}
         <div className="mobile-header-actions">
           <button
             type="button"
@@ -380,6 +382,7 @@ export default function App() {
           </button>
         </div>
       </header>
+
 
       {/* HERO SECTION */}
       <main className="hero-section">
@@ -641,7 +644,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* DEMO SECTION */}
+      {/* DEMO SECTION — temporarily hidden
       <section id="demo-video" className="demo-section">
         <div className="demo-container reveal-up">
           <div className="demo-content">
@@ -657,6 +660,7 @@ export default function App() {
           </div>
         </div>
       </section>
+      */}
 
       {/* TEAM SECTION (3D Hover Effect + Marquee) */}
       <section id="team" className="team-section">
@@ -713,8 +717,7 @@ export default function App() {
       <footer id="contact" className="footer-section">
         <div className="footer-content">
           <div className="footer-brand">
-            <div className="logo-icon">{lang === 'ar' ? 'ح' : 'H'}</div>
-            <span className="logo-text">{lang === 'ar' ? 'حكايتي' : 'Hekayti'}</span>
+            <img src={logoImg} alt="Hekayti Logo" className="footer-logo-img" />
             <p className="footer-brand-desc">{t.footerBrandDesc}</p>
           </div>
 

@@ -117,6 +117,7 @@ body.menu-open {
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(243, 244, 246, 0.6);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+  direction: rtl; /* Logo on right, buttons on left for RTL Arabic layout */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -144,6 +145,14 @@ body.menu-open {
   width: auto;
   object-fit: contain;
   display: block;
+}
+
+.footer-logo-img {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 1rem;
 }
 
 .logo-text {
