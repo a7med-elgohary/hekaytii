@@ -1,5 +1,10 @@
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden !important;
+}
+
+body {
+  overflow-x: hidden !important;
 }
 
 :root {
@@ -20,13 +25,13 @@ body {
   font-family: 'Tajawal', 'Inter', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-dark);
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 
 .app-container {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden !important;
 }
 
 /* Animations and Micro-Interactions */
@@ -89,29 +94,32 @@ body {
 /* Navbar */
 .navbar {
   position: fixed;
-  /* Make it stick to the viewport */
   top: 0;
   left: 0;
   right: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 5%;
+  padding: 1.15rem 5%;
   width: 100%;
   max-width: 100%;
-  /* Overrides any previous constraints */
   margin: 0;
   z-index: 100;
-  /* Higher z-index for fixed navbar */
-  transition: all 0.3s ease-in-out;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(243, 244, 246, 0.6);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navbar.scrolled {
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  padding: 1rem 5%;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  padding: 0.85rem 5%;
+  border-bottom-color: rgba(243, 244, 246, 0.95);
 }
 
 .navbar.hidden {
@@ -150,40 +158,54 @@ body {
 
 .navbar-links {
   display: flex;
-  gap: 2.5rem;
+  gap: 2.2rem;
   direction: rtl;
-  /* Centering the links across the navbar perfectly */
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  align-items: center;
 }
 
 .nav-link {
   text-decoration: none;
-  color: #1f2937;
-  font-weight: 700;
-  font-size: 1.1rem;
-  transition: color 0.2s;
+  color: #4b5563;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+  position: relative;
+  padding: 0.25rem 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #a855f7;
+  transition: width 0.25s ease;
 }
 
 .nav-link:hover {
-  color: var(--primary);
+  color: #a855f7;
+}
+
+.nav-link:hover::after {
+  width: 100%;
 }
 
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .navbar-actions .btn {
-  font-size: 0.95rem;
-  padding: 0.5rem 1.25rem;
+  font-size: 0.92rem;
+  padding: 0.5rem 1.15rem;
 }
 
 .navbar-actions .btn-primary {
-  padding: 0.6rem 1.5rem;
-  font-size: 1rem;
+  padding: 0.55rem 1.35rem;
+  font-size: 0.95rem;
 }
 
 .btn {
@@ -313,6 +335,8 @@ body {
   position: relative;
   padding-top: 5rem;
   /* account for fixed navbar */
+  overflow: hidden;
+  /* prevent negative margin on hero-image-side from leaking */
 }
 
 /* Hero image (left side in RTL = visually on the left) */
@@ -383,13 +407,13 @@ body {
 }
 
 .hero-title-ar {
-  font-size: 5.2rem;
-  font-weight: 900;
+  font-size: 3.6rem;
+  font-weight: 850;
   color: #111827;
   margin-bottom: 1.5rem;
-  line-height: 1.1;
+  line-height: 1.25;
   direction: rtl;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
 }
 
 .text-gradient {
@@ -401,11 +425,11 @@ body {
 }
 
 .hero-desc {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   color: #4b5563;
-  line-height: 1.8;
-  margin-bottom: 3.5rem;
-  max-width: 750px;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  max-width: 650px;
   direction: rtl;
 }
 
@@ -445,6 +469,13 @@ body {
   overflow: hidden;
   border-radius: 12px;
   cursor: pointer;
+}
+
+.store-badge {
+  height: 100%;
+  width: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .badge-wrapper::after {
@@ -511,13 +542,16 @@ body {
   }
 
   .hero-content {
-    order: 1;
+    order: 2;
     text-align: center;
   }
 
   .hero-image-side {
-    order: 2;
+    order: 1;
     width: 100%;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    justify-content: center !important;
   }
 
   .hero-side-img {
@@ -587,14 +621,12 @@ body {
 }
 
 /* Closing media query */
-
 /* Tilted Marquee Transition (Single Diagonal Bar) */
 .tilted-marquee-transition {
   position: absolute;
-  /* Changed to absolute to break out of About padding */
   top: 0;
-  left: -2%;
-  width: 105%;
+  left: -5%;
+  width: 110%;
   height: auto;
   padding: 1.5rem 0;
   background: linear-gradient(90deg, #6b21a8, #9333ea, #6b21a8);
@@ -603,10 +635,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 20;
-  transform: rotate(-2deg);
-  margin-top: -30px;
-  /* Overlap hero edge */
+  z-index: 30;
+  /* Higher z-index to appear on top of other layers */
+  transform: rotate(-2.5deg);
+  margin-top: -35px;
+  /* Position it higher to overlap the hero section */
   box-shadow: 0 10px 30px rgba(107, 33, 168, 0.2);
   animation: bg-pan 6s infinite linear alternate;
 }
@@ -686,10 +719,15 @@ body {
 .about-section {
   padding: 6rem 5%;
   position: relative;
-  z-index: 5;
+  z-index: 15;
+  /* Increased to render above the hero section's base stacking context */
   direction: rtl;
   background-color: #ffffff;
   /* Explicitly white */
+  overflow-x: clip;
+  /* prevent horizontal scroll from the tilted marquee */
+  overflow-y: visible;
+  /* allow the rotated marquee to overlay sections above it without being cut off */
 }
 
 .about-container {
@@ -769,7 +807,7 @@ body {
 .about-main-img {
   position: relative;
   z-index: 2;
-  width: 120%;
+  width: 100%;
   max-width: 650px;
   transform: translateY(0);
   transition: transform 0.6s ease;
@@ -831,9 +869,14 @@ body {
 }
 
 @media (max-width: 900px) {
+  .about-section {
+    padding: 3rem 5% !important;
+  }
+
   .about-container {
     flex-direction: column;
     text-align: center;
+    gap: 1.5rem !important;
   }
 
   .about-title {
@@ -846,7 +889,13 @@ body {
 
   .about-image-wrapper {
     width: 100%;
-    margin-top: 3rem;
+    margin-top: 1rem !important;
+    min-height: auto !important;
+  }
+
+  .about-main-img {
+    width: 100% !important;
+    max-width: 320px !important;
   }
 }
 
@@ -1049,20 +1098,40 @@ body {
   direction: rtl;
   position: relative;
   z-index: 5;
-  overflow: hidden;
+  overflow-x: clip;
+  /* block page-level horizontal leak, but allow child scroll */
 }
 
 /* Fan wrapper — horizontal, centered */
 .cards-fan {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-end;
   gap: 0;
   /* Fully removed gap */
-  max-width: 1200px;
+  max-width: 100%;
+  /* Changed from 1200px to 100% to allow full screen display */
   margin: 1rem auto 0;
-  padding-bottom: 3rem;
+  padding: 0 2rem 3rem;
+  /* padding at the sides to prevent touching screen edge */
   width: 100%;
+  overflow-x: auto;
+  /* allow horizontal scrolling on smaller screens rather than clipping */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE 10+ */
+}
+
+.cards-fan::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+@media (min-width: 901px) {
+  .cards-fan {
+    justify-content: center;
+  }
 }
 
 .fan-arrow {
@@ -1103,8 +1172,9 @@ body {
 /* Base card style */
 .fan-card {
   width: 195px;
-  /* Slightly narrower for better fit */
+  /* Restored original fixed width */
   min-height: 320px;
+  /* Restored original min-height */
   border-radius: 24px;
   background: #ffffff;
   border: 1.5px solid rgba(0, 0, 0, 0.07);
@@ -1117,6 +1187,7 @@ body {
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
     box-shadow 0.35s ease;
   flex-shrink: 0;
+  /* Keep fixed width, do not shrink */
 }
 
 /* Default tilt per card — fan effect */
@@ -1151,6 +1222,7 @@ body {
 .fan-card-img {
   width: 100%;
   height: 175px;
+  /* Restored original fixed height */
   border-radius: 20px 20px 0 0;
   overflow: hidden;
   background: #f3f4f6;
@@ -1198,6 +1270,7 @@ body {
 /* Text body */
 .fan-card-body {
   padding: 1rem 1.2rem 1.5rem;
+  /* Restored original padding */
   direction: rtl;
   text-align: right;
   flex: 1;
@@ -1205,6 +1278,7 @@ body {
 
 .fan-card-body h3 {
   font-size: 1rem;
+  /* Restored original font-size */
   font-weight: 800;
   color: #111827;
   margin-bottom: 0.4rem;
@@ -1212,31 +1286,71 @@ body {
 
 .fan-card-body p {
   font-size: 0.88rem;
+  /* Restored original font-size */
   color: #6b7280;
   line-height: 1.6;
 }
 
-/* ── Mobile: horizontal scroll ── */
-@media (max-width: 768px) {
+/* ── Tablet & Mid-size Desktop: Responsive Card Scaling to Prevent Clipping ── */
+/* ── Mobile & Tablet: vertical stacked layout (no horizontal scroll/clipping issues) ── */
+@media (max-width: 1024px) {
+  .how-section {
+    overflow-x: hidden !important;
+  }
+
   .cards-fan {
-    overflow-x: auto;
-    justify-content: flex-start;
-    padding: 1rem 1.5rem 3rem;
-    gap: 1rem;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden !important;
+    overflow-y: visible;
+    padding: 1rem 1.2rem 2rem;
+    gap: 1.2rem;
+    max-width: 100%;
+    width: 100%;
+    direction: rtl;
   }
 
   .fan-card {
-    scroll-snap-align: center;
-    min-width: 200px;
+    width: 100%;
+    max-width: 320px;
+    min-height: auto;
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+    scroll-snap-align: unset;
   }
 
-  .fan-card-1,
-  .fan-card-2,
-  .fan-card-3,
-  .fan-card-4 {
-    transform: none;
+  /* Force ALL reveal-scale fan cards fully visible — no animation on mobile/tablet */
+  .cards-fan .reveal-scale,
+  .cards-fan .fan-card-1,
+  .cards-fan .fan-card-2,
+  .cards-fan .fan-card-3,
+  .cards-fan .fan-card-4,
+  .cards-fan .fan-card-5 {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  /* Show arrows vertically between cards */
+  .fan-arrow {
+    transform: rotate(-90deg);
+    margin: 0;
+    margin-bottom: 0;
+    flex-shrink: 0;
+    animation: none !important;
+  }
+}
+
+@keyframes arrow-float-mobile {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-6px);
   }
 }
 
@@ -3293,8 +3407,9 @@ body {
   }
 
   .hero-buttons.shop-badges-only .badge-wrapper {
-    height: 48px !important;
-    flex: 0 1 auto !important;
+    height: 46px !important;
+    flex: 0 0 150px !important;
+    width: 150px !important;
   }
 
   /* ---- Flyng Stack Mobile Scale ---- */
@@ -3327,20 +3442,28 @@ body {
 /* ---- MOBILE HERO FIXES (Clean Redundant Overwrites) ---- */
 @media (max-width: 768px) {
   .hero-image-side {
-    display: none !important;
+    display: flex !important;
+    order: 1 !important;
+    width: 100% !important;
+    justify-content: center !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0.5rem !important;
   }
 
   .hero-section {
     padding-top: 5rem !important;
-    padding-bottom: 2rem !important;
+    padding-bottom: 1.5rem !important;
     min-height: auto !important;
     flex-direction: column !important;
+    gap: 0.75rem !important;
   }
 
   .hero-content {
     padding: 1rem 1.5rem 2rem !important;
     text-align: center !important;
     width: 100% !important;
+    order: 2 !important;
   }
 
   .hero-title-ar {

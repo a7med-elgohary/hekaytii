@@ -6,32 +6,12 @@ import './StoryCreatorPage.css';
 
 import bookPage1 from './assets/book_page_1.png';
 
-/* ─────────────────── constants ─────────────────── */
-const TOPICS = [
-  { id: 'space', emoji: '🚀', label: 'الفضاء', color: '#3b82f6' },
-  { id: 'dinosaurs', emoji: '🦕', label: 'ديناصورات', color: '#10b981' },
-  { id: 'magic', emoji: '🧙‍♂️', label: 'السحر', color: '#8b5cf6' },
-  { id: 'ocean', emoji: '🐬', label: 'المحيط', color: '#06b6d4' },
-  { id: 'jungle', emoji: '🦁', label: 'الغابة', color: '#f59e0b' },
-  { id: 'heroes', emoji: '🦸', label: 'الأبطال', color: '#ef4444' },
-  { id: 'robots', emoji: '🤖', label: 'الروبوتات', color: '#64748b' },
-  { id: 'animals', emoji: '🐾', label: 'الحيوانات', color: '#d946ef' },
-  { id: 'other', emoji: '✨', label: 'آخر...', color: '#6366f1' },
-];
-
-const LENGTHS = [
-  { id: 'short', emoji: '📖', label: 'قصيرة', desc: 'حوالي 5 دقائق قراءة' },
-  { id: 'medium', emoji: '📚', label: 'متوسطة', desc: 'حوالي 10 دقائق قراءة' },
-  { id: 'long', emoji: '📕', label: 'طويلة', desc: 'حوالي 15 دقيقة قراءة' },
-];
-
-/* ─────────────────── step meta ─────────────────── */
-const STEPS = [
-  { id: 1, icon: '👤', title: 'بيانات بطلنا', desc: 'من هو بطل هذه المغامرة؟' },
-  { id: 2, icon: '🎯', title: 'عالم القصة', desc: 'أين ستدور أحداث المغامرة؟' },
-  { id: 3, icon: '📏', title: 'طول الرحلة', desc: 'كم من الوقت ستستغرق القصة؟' },
-  { id: 4, icon: '📸', title: 'صورة البطل', desc: 'لنرى وجه بطلنا الشجاع' },
-];
+import { 
+  STORY_CREATOR_TRANSLATIONS, 
+  getLocalizedTopics, 
+  getLocalizedLengths, 
+  getLocalizedSteps 
+} from './translations.js';
 
 const Page = React.forwardRef((props, ref) => {
   return (
@@ -45,6 +25,12 @@ const Page = React.forwardRef((props, ref) => {
 
 export default function StoryCreatorPage() {
   const navigate = useNavigate();
+  const lang = localStorage.getItem('lang') || 'ar';
+  const t = STORY_CREATOR_TRANSLATIONS[lang];
+  const steps = getLocalizedSteps(lang);
+  const topics = getLocalizedTopics(lang);
+  const lengths = getLocalizedLengths(lang);
+
 
   /* ── state ── */
   const [step, setStep] = useState(1);
@@ -71,59 +57,63 @@ export default function StoryCreatorPage() {
   /* ── mount animation ── */
   useEffect(() => {
     window.scrollTo(0, 0);
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
     if (illustrationRef.current) {
       gsap.fromTo(illustrationRef.current,
         { y: 30, opacity: 0 },
         { y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
       );
     }
-  }, []);
+  }, [lang]);
 
   /* ── validation ── */
   const validate = useCallback(() => {
     const e = {};
     if (step === 1) {
-      if (!form.name.trim()) e.name = 'نسيت كتابة اسم البطل!';
-      if (!form.age || form.age < 3 || form.age > 12) e.age = 'اختر عمراً مناسباً';
-      if (!form.gender) e.gender = 'هل هو ولد أم بنت؟';
+      if (!form.name.trim()) e.name = t.errName;
+      if (!form.age || form.age < 3 || form.age > 12) e.age = t.errAge;
+      if (!form.gender) e.gender = t.errGender;
     }
     if (step === 2) {
-      if (!form.topic) e.topic = 'يجب اختيار عالم القصة!';
-      if (form.topic === 'other' && !form.customTopic.trim()) e.customTopic = 'اكتب عالمك المخصص!';
+      if (!form.topic) e.topic = t.errTopic;
+      if (form.topic === 'other' && !form.customTopic.trim()) e.customTopic = t.errCustomTopic;
     }
-    if (step === 3 && !form.length) e.length = 'حدد طول القصة التي تفضلها';
+    if (step === 3 && !form.length) e.length = t.errLength;
     return e;
-  }, [step, form]);
+  }, [step, form, t]);
 
   const handleNext = useCallback(() => {
     const e = validate();
     if (Object.keys(e).length) { setErrors(e); return; }
     setErrors({});
     if (mainContentRef.current) {
+      const xOffset = lang === 'ar' ? -80 : 80;
       gsap.to(mainContentRef.current, {
-        x: -80, opacity: 0, duration: 0.25, ease: 'power2.in', onComplete: () => {
+        x: xOffset, opacity: 0, duration: 0.25, ease: 'power2.in', onComplete: () => {
           setStep(s => s + 1);
-          gsap.fromTo(mainContentRef.current, { x: 80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: 'power3.out' });
+          gsap.fromTo(mainContentRef.current, { x: -xOffset, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: 'power3.out' });
         }
       });
     } else {
       setStep(s => s + 1);
     }
-  }, [validate]);
+  }, [validate, lang]);
 
   const handleBack = useCallback(() => {
     setErrors({});
     if (mainContentRef.current) {
+      const xOffset = lang === 'ar' ? 80 : -80;
       gsap.to(mainContentRef.current, {
-        x: 80, opacity: 0, duration: 0.25, ease: 'power2.in', onComplete: () => {
+        x: xOffset, opacity: 0, duration: 0.25, ease: 'power2.in', onComplete: () => {
           setStep(s => s - 1);
-          gsap.fromTo(mainContentRef.current, { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: 'power3.out' });
+          gsap.fromTo(mainContentRef.current, { x: -xOffset, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: 'power3.out' });
         }
       });
     } else {
       setStep(s => s - 1);
     }
-  }, []);
+  }, [lang]);
 
   const handleSubmit = useCallback(() => {
     setSubmitted(true);
@@ -165,11 +155,11 @@ export default function StoryCreatorPage() {
       {/* TOP NAVBAR */}
       <nav className="scp-navbar">
         <div className="scp-logo" onClick={() => navigate('/')}>
-          <div className="scp-logo-icon">ح</div>
-          <span className="scp-logo-text">حكايتي</span>
+          <div className="scp-logo-icon">{lang === 'ar' ? 'ح' : 'H'}</div>
+          <span className="scp-logo-text">{lang === 'ar' ? 'حكايتي' : 'Hekayti'}</span>
         </div>
         <button className="scp-btn-outline" onClick={() => navigate('/')}>
-          إلغاء والعودة للرئيسية
+          {t.cancelBtn}
         </button>
       </nav>
 
@@ -180,14 +170,14 @@ export default function StoryCreatorPage() {
         <aside className="scp-sidebar">
           <div className="scp-sidebar-content">
             <h1 className="scp-page-title">
-              ابتكر قصة <br /><span className="text-gradient">خيالية جديدة</span> ✨
+              {t.pageTitle1} <br /><span className="text-gradient">{t.pageTitle2}</span>
             </h1>
             <p className="scp-page-subtitle">
-              اتبع الخطوات السحرية لنصنع معاً مغامرة يكون طفلك بطلها الأول!
+              {t.pageSubtitle}
             </p>
 
             <div className="scp-stepper">
-              {STEPS.map((s, i) => {
+              {steps.map((s, i) => {
                 const isActive = step === s.id;
                 const isPast = step > s.id;
                 return (
@@ -219,27 +209,27 @@ export default function StoryCreatorPage() {
           ) : (
             <div className="scp-form-card">
               <div className="scp-step-content-area" ref={mainContentRef}>
-                {step === 1 && <Step1 form={form} errors={errors} updateForm={updateForm} />}
-                {step === 2 && <Step2 form={form} errors={errors} updateForm={updateForm} />}
-                {step === 3 && <Step3 form={form} errors={errors} updateForm={updateForm} />}
-                {step === 4 && <Step4 form={form} errors={errors} updateForm={updateForm} onPhotoChange={handlePhotoChange} />}
+                {step === 1 && <Step1 form={form} errors={errors} updateForm={updateForm} t={t} />}
+                {step === 2 && <Step2 form={form} errors={errors} updateForm={updateForm} t={t} topics={topics} />}
+                {step === 3 && <Step3 form={form} errors={errors} updateForm={updateForm} t={t} lengths={lengths} />}
+                {step === 4 && <Step4 form={form} errors={errors} updateForm={updateForm} onPhotoChange={handlePhotoChange} t={t} />}
               </div>
 
               {/* FOOTER ACTIONS */}
               <div className="scp-form-actions">
                 {step > 1 ? (
                   <button className="scp-btn-secondary" onClick={handleBack}>
-                    الخطوة السابقة
+                    {t.prevStep}
                   </button>
                 ) : <div></div>}
 
-                {step < STEPS.length ? (
+                {step < steps.length ? (
                   <button className="scp-btn-primary" onClick={handleNext}>
-                    متابعة للخطوة التالية <span>←</span>
+                    {t.nextStep} <span style={{ display: 'inline-block', transform: lang === 'en' ? 'rotate(180deg)' : 'none' }}>{t.nextStepArrow}</span>
                   </button>
                 ) : (
                   <button className="scp-btn-primary magic-btn" onClick={handleSubmit}>
-                    🪄 ابدأ بإنشاء القصة!
+                    {t.createBtn}
                   </button>
                 )}
               </div>
@@ -282,7 +272,7 @@ export default function StoryCreatorPage() {
                 >
                   {readingBook.pages.map((pageImg, pageIndex) => (
                     <Page key={`${readingBook.id}-page-${pageIndex}`}>
-                      <img src={pageImg} alt={`صفحة ${pageIndex + 1}`} className="page-image" />
+                      <img src={pageImg} alt={`Page ${pageIndex + 1}`} className="page-image" />
                     </Page>
                   ))}
                 </HTMLFlipBook>
@@ -290,7 +280,7 @@ export default function StoryCreatorPage() {
             </div>
             <button className="book-close-btn" onClick={handleCloseBook}>
               <span className="close-icon-text">✕</span>
-              <span>إغلاق الكتاب</span>
+              <span>{t.closeBook}</span>
             </button>
           </div>
         </div>
@@ -303,23 +293,23 @@ export default function StoryCreatorPage() {
 /* ═══════════════════════════════════════════
    STEP 1 — child info
 ════════════════════════════════════════════ */
-function Step1({ form, errors, updateForm }) {
+function Step1({ form, errors, updateForm, t }) {
   return (
     <div className="scp-step-view">
       <div className="scp-view-header">
-        <h2>أهلاً بك! من هو بطل قصتنا اليوم؟ 👶</h2>
-        <p>نحتاج لبعض التفاصيل البسيطة لنجعل القصة مناسبة وممتعة.</p>
+        <h2>{t.step1Title}</h2>
+        <p>{t.step1Subtitle}</p>
       </div>
 
       <div className="scp-form-grid">
         <div className="scp-input-group full-width">
-          <label>اسم البطل</label>
+          <label>{t.heroName}</label>
           <div className="scp-input-wrapper">
             <span className="scp-input-icon">✏️</span>
             <input
               className={`scp-input ${errors.name ? 'error' : ''}`}
               type="text"
-              placeholder="مثال: يوسف، مريم..."
+              placeholder={t.heroNamePlaceholder}
               value={form.name}
               onChange={e => updateForm('name', e.target.value)}
               maxLength={30}
@@ -330,7 +320,7 @@ function Step1({ form, errors, updateForm }) {
         </div>
 
         <div className="scp-input-group">
-          <label>عمر البطل (سنوات)</label>
+          <label>{t.heroAge}</label>
           <div className="scp-pills-row">
             {[3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(a => (
               <button
@@ -347,7 +337,7 @@ function Step1({ form, errors, updateForm }) {
         </div>
 
         <div className="scp-input-group">
-          <label>هل بطلنا ولد أم بنت؟</label>
+          <label>{t.heroGender}</label>
           <div className="scp-gender-cards">
             <button
               type="button"
@@ -355,7 +345,7 @@ function Step1({ form, errors, updateForm }) {
               onClick={() => updateForm('gender', 'boy')}
             >
               <span className="scp-gender-emoji">👦</span>
-              <span className="scp-gender-text">ولد</span>
+              <span className="scp-gender-text">{t.boy}</span>
             </button>
             <button
               type="button"
@@ -363,7 +353,7 @@ function Step1({ form, errors, updateForm }) {
               onClick={() => updateForm('gender', 'girl')}
             >
               <span className="scp-gender-emoji">👧</span>
-              <span className="scp-gender-text">بنت</span>
+              <span className="scp-gender-text">{t.girl}</span>
             </button>
           </div>
           {errors.gender && <span className="scp-error-msg">{errors.gender}</span>}
@@ -376,25 +366,25 @@ function Step1({ form, errors, updateForm }) {
 /* ═══════════════════════════════════════════
    STEP 2 — topic
 ════════════════════════════════════════════ */
-function Step2({ form, errors, updateForm }) {
+function Step2({ form, errors, updateForm, t, topics }) {
   return (
     <div className="scp-step-view">
       <div className="scp-view-header">
-        <h2>عالم المغامرة 🎯</h2>
-        <p>ما هو العالم الذي يفضل طفلك استكشافه؟ الذكاء الاصطناعي سيبني القصة حوله.</p>
+        <h2>{t.step2Title}</h2>
+        <p>{t.step2Subtitle}</p>
       </div>
 
       <div className="scp-topics-grid">
-        {TOPICS.map(t => (
+        {topics.map(tData => (
           <button
-            key={t.id}
+            key={tData.id}
             type="button"
-            className={`scp-topic-card ${form.topic === t.id ? 'selected' : ''}`}
-            onClick={() => updateForm('topic', t.id)}
-            style={{ '--topic-color': t.color }}
+            className={`scp-topic-card ${form.topic === tData.id ? 'selected' : ''}`}
+            onClick={() => updateForm('topic', tData.id)}
+            style={{ '--topic-color': tData.color }}
           >
-            <div className="scp-topic-emoji">{t.emoji}</div>
-            <div className="scp-topic-label">{t.label}</div>
+            <div className="scp-topic-emoji">{tData.emoji}</div>
+            <div className="scp-topic-label">{tData.label}</div>
             <div className="scp-topic-check">✓</div>
           </button>
         ))}
@@ -402,13 +392,13 @@ function Step2({ form, errors, updateForm }) {
 
       {form.topic === 'other' && (
         <div className="scp-input-group full-width" style={{ marginTop: '25px', animation: 'fadeIn 0.4s ease' }}>
-          <label>اكتب عالمك الخاص ✨</label>
+          <label>{t.customTopicLabel}</label>
           <div className="scp-input-wrapper">
             <span className="scp-input-icon">🪄</span>
             <input
               className={`scp-input ${errors.customTopic ? 'error' : ''}`}
               type="text"
-              placeholder="مثال: عالم الحلويات، تحت الأرض، مدرسة الأبطال..."
+              placeholder={t.customTopicPlaceholder}
               value={form.customTopic}
               onChange={e => updateForm('customTopic', e.target.value)}
               autoComplete="off"
@@ -426,16 +416,16 @@ function Step2({ form, errors, updateForm }) {
 /* ═══════════════════════════════════════════
    STEP 3 — length
 ════════════════════════════════════════════ */
-function Step3({ form, errors, updateForm }) {
+function Step3({ form, errors, updateForm, t, lengths }) {
   return (
     <div className="scp-step-view">
       <div className="scp-view-header">
-        <h2>طول الرحلة 📏</h2>
-        <p>هل تفضل قصة سريعة قبل النوم أم مغامرة طويلة ومفصلة؟</p>
+        <h2>{t.step3Title}</h2>
+        <p>{t.step3Subtitle}</p>
       </div>
 
       <div className="scp-lengths-list">
-        {LENGTHS.map(l => (
+        {lengths.map(l => (
           <button
             key={l.id}
             type="button"
@@ -444,7 +434,7 @@ function Step3({ form, errors, updateForm }) {
           >
             <div className="scp-length-icon">{l.emoji}</div>
             <div className="scp-length-info">
-              <h3>قصة {l.label}</h3>
+              <h3>{l.label}</h3>
               <p>{l.desc}</p>
             </div>
             <div className="scp-length-radio">
@@ -461,7 +451,7 @@ function Step3({ form, errors, updateForm }) {
 /* ═══════════════════════════════════════════
    STEP 4 — photo
 ════════════════════════════════════════════ */
-function Step4({ form, updateForm, onPhotoChange }) {
+function Step4({ form, updateForm, onPhotoChange, t }) {
   const dropRef = useRef(null);
   const fileInputRef = useRef(null);
 
@@ -477,8 +467,8 @@ function Step4({ form, updateForm, onPhotoChange }) {
   return (
     <div className="scp-step-view">
       <div className="scp-view-header">
-        <h2>صورة البطل (اختيارية) 📸</h2>
-        <p>ارفع صورة لطفلك وسيقوم الذكاء الاصطناعي برسم شخصيته الكرتونية داخل القصة!</p>
+        <h2>{t.step4Title}</h2>
+        <p>{t.step4Subtitle}</p>
       </div>
 
       <div
@@ -491,17 +481,17 @@ function Step4({ form, updateForm, onPhotoChange }) {
       >
         {form.photoPreview ? (
           <div className="scp-photo-preview-wrap">
-            <img src={form.photoPreview} alt="معاينة الصورة" />
+            <img src={form.photoPreview} alt="Preview" />
             <div className="scp-photo-overlay">
-              <span>تغيير الصورة 🔄</span>
+              <span>{t.changePhoto}</span>
             </div>
           </div>
         ) : (
           <div className="scp-dropzone-content">
             <div className="scp-dropzone-icon">🖼️</div>
-            <h3>اسحب وأفلت الصورة هنا</h3>
-            <p>أو اضغط لتصفح ملفات جهازك</p>
-            <div className="scp-btn-fake">اختيار صورة</div>
+            <h3>{t.dragDrop}</h3>
+            <p>{t.orClick}</p>
+            <div className="scp-btn-fake">{t.choosePhoto}</div>
           </div>
         )}
       </div>
@@ -515,9 +505,9 @@ function Step4({ form, updateForm, onPhotoChange }) {
       />
 
       <div className="scp-skip-wrap">
-        <p>لا ترغب في رفع صورة؟</p>
+        <p>{t.noPhotoText}</p>
         <button type="button" className="scp-btn-text" onClick={() => updateForm('photo', 'skip')}>
-          تخطي هذه الخطوة
+          {t.skipStep}
         </button>
       </div>
     </div>
@@ -528,6 +518,11 @@ function Step4({ form, updateForm, onPhotoChange }) {
    SUCCESS VIEW — Real API Integration
 ════════════════════════════════════════════ */
 function SuccessView({ form, onHome, onReadNow }) {
+  const lang = localStorage.getItem('lang') || 'ar';
+  const t = STORY_CREATOR_TRANSLATIONS[lang];
+  const topics = getLocalizedTopics(lang);
+  const lengths = getLocalizedLengths(lang);
+
   const successRef = useRef(null);
   const resultRef = useRef(null);
   const [isGenerating, setIsGenerating] = useState(true);
@@ -553,14 +548,14 @@ function SuccessView({ form, onHome, onReadNow }) {
           },
           body: JSON.stringify({
             name: form.name,
-            hobby: form.topic === 'other' ? form.customTopic : TOPICS.find(t => t.id === form.topic)?.label,
-            gender: form.gender === 'boy' ? 'ولد' : 'بنت',
+            hobby: form.topic === 'other' ? form.customTopic : topics.find(tData => tData.id === form.topic)?.label,
+            gender: form.gender === 'boy' ? (lang === 'ar' ? 'ولد' : 'boy') : (lang === 'ar' ? 'بنت' : 'girl'),
             photoBase64: form.photoPreview ? form.photoPreview.split(',')[1] : "",
             numChapters: form.length === 'short' ? 5 : form.length === 'medium' ? 10 : 15
           })
         });
 
-        if (!response.ok) throw new Error('فشل في توليد القصة. تأكد من تشغيل الـ Backend');
+        if (!response.ok) throw new Error(lang === 'ar' ? 'فشل في توليد القصة. تأكد من تشغيل الـ Backend' : 'Failed to generate story. Make sure Backend is running.');
 
         const data = await response.json();
         setGeneratedStory(data);
@@ -573,7 +568,7 @@ function SuccessView({ form, onHome, onReadNow }) {
     };
 
     generateStory();
-  }, [form, TOKEN, isGenerating, generatedStory]);
+  }, [form, TOKEN, isGenerating, generatedStory, lang, topics]);
 
   const handleDownloadPdf = async () => {
     if (!generatedStory) return;
@@ -590,7 +585,7 @@ function SuccessView({ form, onHome, onReadNow }) {
         window.open(data.pdfUrl, '_blank');
       }
     } catch (error) {
-      alert('فشل تحميل الـ PDF');
+      alert(t.pdfError);
     } finally {
       setPdfLoading(false);
     }
@@ -614,33 +609,33 @@ function SuccessView({ form, onHome, onReadNow }) {
     }
   }, [isGenerating]);
 
-  const topicLabel = form.topic === 'other' ? form.customTopic : (TOPICS.find(t => t.id === form.topic)?.label || '');
+  const topicLabel = form.topic === 'other' ? form.customTopic : (topics.find(tData => tData.id === form.topic)?.label || '');
 
   if (!isGenerating && generatedStory) {
     return (
       <div className="scp-result-view" ref={resultRef}>
         <div className="scp-result-header">
-          <span className="scp-result-badge">✨ قصة جديدة جاهزة</span>
-          <h2>{generatedStory.title || `مغامرة ${form.name} في عالم ${topicLabel}`}</h2>
+          <span className="scp-result-badge">{t.readyBadge}</span>
+          <h2>{generatedStory.title || (lang === 'ar' ? `مغامرة ${form.name} في عالم ${topicLabel}` : `${form.name}'s adventure in ${topicLabel}`)}</h2>
         </div>
 
         <div className="scp-result-book-card">
           <div className="scp-rbc-image">
-            <img src={generatedStory.storyImages?.[0]?.imageUrl || bookPage1} alt="غلاف القصة" />
+            <img src={generatedStory.storyImages?.[0]?.imageUrl || bookPage1} alt="Cover" />
             <div className="scp-rbc-overlay">
               <button className="scp-btn-play" onClick={() => onReadNow({
                 id: generatedStory.id,
                 title: generatedStory.title,
                 pages: generatedStory.storyImages.map(img => img.imageUrl)
-              })}>▶ قراءة تفاعلية</button>
+              })}>{t.readPlay}</button>
             </div>
           </div>
           <div className="scp-rbc-details">
-            <h3>الملخص</h3>
+            <h3>{t.summaryTitle}</h3>
             <p>{generatedStory.content}</p>
             <div className="scp-rbc-meta">
-              <span>العالم: {topicLabel}</span>
-              <span>العمر: {form.age} سنوات</span>
+              <span>{t.summaryWorld} {topicLabel}</span>
+              <span>{t.summaryHero} {form.name} ({form.age} {t.yearsOld})</span>
             </div>
           </div>
         </div>
@@ -651,13 +646,13 @@ function SuccessView({ form, onHome, onReadNow }) {
             title: generatedStory.title,
             pages: generatedStory.storyImages.map(img => img.imageUrl)
           })}>
-            اقرأ القصة الآن 📖
+            {t.readNowBtn}
           </button>
           <button className="scp-btn-secondary" onClick={handleDownloadPdf} disabled={pdfLoading}>
-            {pdfLoading ? 'جاري التحميل...' : 'تنزيل (PDF) 📥'}
+            {pdfLoading ? t.downloadingPdf : t.downloadPdf}
           </button>
           <button className="scp-btn-outline" style={{ width: 'auto' }} onClick={onHome}>
-            الصفحة الرئيسية
+            {t.homeBtn}
           </button>
         </div>
       </div>
@@ -670,7 +665,7 @@ function SuccessView({ form, onHome, onReadNow }) {
         <div className="scp-success-icon-wrap" style={{ background: 'rgba(239, 68, 68, 0.1)', marginBottom: '20px' }}>
           <span style={{ fontSize: '3rem' }}>❌</span>
         </div>
-        <h1 className="scp-success-title" style={{ color: '#ef4444' }}>أوبس! حدث خطأ</h1>
+        <h1 className="scp-success-title" style={{ color: '#ef4444' }}>{t.errorTitle}</h1>
         <p className="scp-success-desc" style={{ marginBottom: '20px' }}>{error}</p>
 
         <div style={{ display: 'flex', gap: '15px', justifyContent: 'center' }}>
@@ -678,15 +673,17 @@ function SuccessView({ form, onHome, onReadNow }) {
             setError(null);
             setIsGenerating(true);
           }}>
-            إعادة المحاولة 🔄
+            {t.retryBtn}
           </button>
           <button className="scp-btn-secondary" onClick={onHome}>
-            العودة للرئيسية
+            {t.backHomeBtn}
           </button>
         </div>
       </div>
     );
   }
+
+  const localizedDesc = t.generatingDesc.replace('{name}', form.name).replace('{topic}', topicLabel);
 
   return (
     <div className="scp-success-view" ref={successRef}>
@@ -695,22 +692,19 @@ function SuccessView({ form, onHome, onReadNow }) {
         <div className="scp-pulse-ring"></div>
       </div>
 
-      <h1 className="scp-success-title">سحر الذكاء الاصطناعي يعمل الآن!</h1>
-      <p className="scp-success-desc">
-        نحن ننسج خيوط مغامرة <strong>{form.name}</strong> في عالم <strong>{topicLabel}</strong>.
-        يرجى الانتظار قليلاً بينما تكتمل القصة السحرية والرسومات.
-      </p>
+      <h1 className="scp-success-title">{t.generatingTitle}</h1>
+      <p className="scp-success-desc">{localizedDesc}</p>
 
       <div className="scp-summary-cards">
         {form.photoPreview && form.photo !== 'skip' && (
           <div className="scp-summary-photo">
-            <img src={form.photoPreview} alt="البطل" />
+            <img src={form.photoPreview} alt="Hero" />
           </div>
         )}
         <div className="scp-summary-details">
-          <div className="scp-sd-item"><span>البطل:</span> {form.name} ({form.age} سنوات)</div>
-          <div className="scp-sd-item"><span>العالم:</span> {topicLabel}</div>
-          <div className="scp-sd-item"><span>طول القصة:</span> {LENGTHS.find(l => l.id === form.length)?.label}</div>
+          <div className="scp-sd-item"><span>{t.summaryHero}</span> {form.name} ({form.age} {t.yearsOld})</div>
+          <div className="scp-sd-item"><span>{t.summaryWorld}</span> {topicLabel}</div>
+          <div className="scp-sd-item"><span>{t.summaryLength}</span> {lengths.find(l => l.id === form.length)?.label}</div>
         </div>
       </div>
 
@@ -718,12 +712,13 @@ function SuccessView({ form, onHome, onReadNow }) {
         <div className="scp-loader-bar">
           <div className="scp-loader-fill"></div>
         </div>
-        <p className="scp-loader-text">جاري توليد القصة... ⏳</p>
+        <p className="scp-loader-text">{t.generatingProgress}</p>
       </div>
 
       <button className="scp-btn-secondary" onClick={onHome} style={{ marginTop: '20px' }}>
-        إلغاء
+        {t.cancel}
       </button>
     </div>
   );
 }
+

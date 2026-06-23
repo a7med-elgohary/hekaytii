@@ -1,0 +1,205 @@
+.al-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f172a;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', 'Tajawal', sans-serif;
+}
+
+/* ── Background Visuals ── */
+.al-bg-visuals {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.al-blob {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  animation: blob-move 20s infinite alternate;
+}
+
+.al-blob-1 {
+  background: #6c72ff;
+  top: -100px;
+  left: -100px;
+}
+
+.al-blob-2 {
+  background: #a855f7;
+  bottom: -100px;
+  right: -100px;
+  animation-delay: -5s;
+}
+
+@keyframes blob-move {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(100px, 50px) scale(1.1); }
+}
+
+.al-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* ── Login Card ── */
+.al-card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: card-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes card-reveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.al-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.al-logo {
+  width: 56px;
+  height: 56px;
+  background: #6c72ff;
+  color: white;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 10px 25px rgba(108, 114, 255, 0.4);
+}
+
+.al-header h1 {
+  color: white;
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.al-header p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.al-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.al-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.al-input-group label {
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding-right: 4px;
+}
+
+.al-input-group input {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.85rem 1.2rem;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.al-input-group input:focus {
+  outline: none;
+  border-color: #6c72ff;
+  background: rgba(15, 23, 42, 0.8);
+  box-shadow: 0 0 0 4px rgba(108, 114, 255, 0.15);
+}
+
+.al-submit {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #6c72ff;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.al-submit:hover:not(:disabled) {
+  background: #5b62e6;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(108, 114, 255, 0.3);
+}
+
+.al-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.al-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.al-error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.al-footer {
+  margin-top: 2.5rem;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+/* ── Spinner ── */
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import { useNavigate, useLocation } from 'react-router-dom';
 import heroSideImg from './assets/Gemini_Generated_Image_32tvnl32tvnl32tv.png';
+import heroSideImgEN from './assets/heroimageinEN.png';
 import uploadPhotoImg from './assets/upload_photo.png';
 import chooseInterestImg from './assets/choose_interest.png';
 import aiGeneratesImg from './assets/ai_generates_boy.png';
@@ -25,6 +26,7 @@ import dreamyStarsImg from "./assets/dreamy_stars.png";
 import bookPage1 from './assets/book_page_1.png';
 import bookPage2 from './assets/book_page_2.png';
 import './App.css';
+import { APP_TRANSLATIONS } from './translations.js';
 
 const Page = React.forwardRef((props, ref) => {
   return (
@@ -36,12 +38,21 @@ const Page = React.forwardRef((props, ref) => {
   );
 });
 
+
+
 export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
   const [isClosing, setIsClosing] = useState(false);
+  const [lang, setLang] = useState(localStorage.getItem('lang') || 'ar');
+
+  useEffect(() => {
+    localStorage.setItem('lang', lang);
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   useEffect(() => {
     if (location.state?.newBook) {
@@ -74,23 +85,24 @@ export default function App() {
   const libraryBooks = [
     {
       id: 1,
-      title: "مغامرات الفضاء",
+      title: lang === 'ar' ? "مغامرات الفضاء" : "Space Adventures",
       coverImg: bookPage1,
       pages: [bookPage2, chooseInterestImg, HomeParallaxImg, dreamyStarsImg]
     },
     {
       id: 2,
-      title: "أبطال المستقبل",
+      title: lang === 'ar' ? "أبطال المستقبل" : "Future Heroes",
       coverImg: aiGeneratesImg,
       pages: [childReadsImg, team1Img, uploadPhotoImg, team3Img]
     },
     {
       id: 3,
-      title: "قصص خيالية",
+      title: lang === 'ar' ? "قصص خيالية" : "Fantasy Tales",
       coverImg: childReadsImg,
       pages: [aboutImg, team2Img, heroSideImg, bookPage1]
     }
   ];
+
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [isNavScrolled, setIsNavScrolled] = useState(false);
   const lastScrollY = useRef(0);
@@ -247,15 +259,15 @@ export default function App() {
   }, [selectedBook]);
 
   const teamMembers = [
-    { name: "Mariev Ashea", role: "Flutter Developer", img: marievCartoon, linkedin: "https://www.linkedin.com/in/mariev-asheaa-85220b2b3/" },
-    { name: "Reem Albadwy", role: "AI Engineer", img: reemCartoon, linkedin: "https://www.linkedin.com/in/reem-albadwy-944262266/" },
-    { name: "Basmala Elshabrawy", role: "Backend Developer", img: basmalaCartoon, linkedin: "https://www.linkedin.com/in/basmala-mohammed-bb8131252/" },
-    { name: "Heba Tarek", role: "Flutter Developer", img: hebaCartoon, linkedin: "https://www.linkedin.com/in/heba-tarek-cce/" },
-    { name: "Ahmed Elgohary", role: "Backend Developer", img: ahmedElgoharyCartoon, linkedin: "https://www.linkedin.com/in/ahmed-elgohary7" },
-    { name: "Omar Kamal", role: "Business Analyst", img: omarCartoon, linkedin: "https://www.linkedin.com/in/omarkamal204/" },
-    { name: "Abdulrahman Shalan", role: "Business Analyst", img: abdulrahmanCartoon, linkedin: "https://www.linkedin.com/in/shalan1/" },
-    { name: "Ali Sakr", role: "AI Engineer", img: aliCartoon, linkedin: "https://www.linkedin.com/in/ali-monir-sakr/" },
-    { name: "Mohamed Kardosha", role: "AI Engineer", img: mohamedCartoon, linkedin: "https://www.linkedin.com/in/mohamedkardosha/" }
+    { name: "Mariev Ashea", role: lang === 'ar' ? "مطور فلاتر (Flutter)" : "Flutter Developer", img: marievCartoon, linkedin: "https://www.linkedin.com/in/mariev-asheaa-85220b2b3/" },
+    { name: "Reem Albadwy", role: lang === 'ar' ? "مهندس ذكاء اصطناعي" : "AI Engineer", img: reemCartoon, linkedin: "https://www.linkedin.com/in/reem-albadwy-944262266/" },
+    { name: "Basmala Elshabrawy", role: lang === 'ar' ? "مطور خلفية برمجية" : "Backend Developer", img: basmalaCartoon, linkedin: "https://www.linkedin.com/in/basmala-mohammed-bb8131252/" },
+    { name: "Heba Tarek", role: lang === 'ar' ? "مطور فلاتر (Flutter)" : "Flutter Developer", img: hebaCartoon, linkedin: "https://www.linkedin.com/in/heba-tarek-cce/" },
+    { name: "Ahmed Elgohary", role: lang === 'ar' ? "مطور خلفية برمجية" : "Backend Developer", img: ahmedElgoharyCartoon, linkedin: "https://www.linkedin.com/in/ahmed-elgohary7" },
+    { name: "Omar Kamal", role: lang === 'ar' ? "محلل أعمال" : "Business Analyst", img: omarCartoon, linkedin: "https://www.linkedin.com/in/omarkamal204/" },
+    { name: "Abdulrahman Shalan", role: lang === 'ar' ? "محلل أعمال" : "Business Analyst", img: abdulrahmanCartoon, linkedin: "https://www.linkedin.com/in/shalan1/" },
+    { name: "Ali Sakr", role: lang === 'ar' ? "مهندس ذكاء اصطناعي" : "AI Engineer", img: aliCartoon, linkedin: "https://www.linkedin.com/in/ali-monir-sakr/" },
+    { name: "Mohamed Kardosha", role: lang === 'ar' ? "مهندس ذكاء اصطناعي" : "AI Engineer", img: mohamedCartoon, linkedin: "https://www.linkedin.com/in/mohamedkardosha/" }
   ];
 
   // Repeat inner pages to make the book feel thicker.
@@ -266,63 +278,79 @@ export default function App() {
   const testimonials = [
     {
       rating: "5.0",
-      text: "بنتي كانت بتمل من القراءة بسرعة، لكن بعد حكايتي بقت كل يوم تطلب قصة جديدة وتقرأها للنهاية بحماس.",
-      sourceLabel: "عرض التعليق الأصلي",
+      text: lang === 'ar'
+        ? "بنتي كانت بتمل من القراءة بسرعة، لكن بعد حكايتي بقت كل يوم تطلب قصة جديدة وتقرأها للنهاية بحماس."
+        : "My daughter used to get bored of reading quickly, but after Hekayti, she asks for a new story every day and reads it to the end with excitement.",
+      sourceLabel: lang === 'ar' ? "عرض التعليق الأصلي" : "View Original Comment",
       sourceUrl: "https://www.instagram.com/",
-      name: "أم ليان",
-      city: "الرياض",
+      name: lang === 'ar' ? "أم ليان" : "Um Layan",
+      city: lang === 'ar' ? "الرياض" : "Riyadh",
       img: team1Img,
     },
     {
       rating: "4.9",
-      text: "الفكرة مبدعة جدًا، القصة مناسبة لعمر الطفل ومكتوبة عربي بشكل جميل. التطبيق فعلاً وفر علينا وقت كبير.",
-      sourceLabel: "عرض التعليق الأصلي",
+      text: lang === 'ar'
+        ? "الفكرة مبدعة جدًا، القصة مناسبة لعمر الطفل ومكتوبة عربي بشكل جميل. التطبيق فعلاً وفر علينا وقت كبير."
+        : "The idea is highly creative, the story is age-appropriate and beautifully written. The app saved us a lot of time.",
+      sourceLabel: lang === 'ar' ? "عرض التعليق الأصلي" : "View Original Comment",
       sourceUrl: "https://www.facebook.com/",
-      name: "أبو يزن",
-      city: "جدة",
+      name: lang === 'ar' ? "أبو يزن" : "Abu Yazan",
+      city: lang === 'ar' ? "جدة" : "Jeddah",
       img: team2Img,
     },
     {
       rating: "5.0",
-      text: "أكثر شيء عجبني إن ابني هو بطل القصة فعلًا، وده خلّاه متعلق بالقراءة وبيتكلم عن القصص طول اليوم.",
-      sourceLabel: "عرض التعليق الأصلي",
+      text: lang === 'ar'
+        ? "أكثر شيء عجبني إن ابني هو بطل القصة فعلًا، وده خلّاه متعلق بالقراءة وبيتكلم عن القصص طول اليوم."
+        : "What I liked most is that my son is truly the hero of the story, which kept him attached to reading and talking about the stories all day.",
+      sourceLabel: lang === 'ar' ? "عرض التعليق الأصلي" : "View Original Comment",
       sourceUrl: "https://www.linkedin.com/",
-      name: "أم راكان",
-      city: "القاهرة",
+      name: lang === 'ar' ? "أم راكان" : "Um Rakan",
+      city: lang === 'ar' ? "القاهرة" : "Cairo",
       img: team3Img,
     },
   ];
+
+  const t = APP_TRANSLATIONS[lang];
 
   return (
     <div className="app-container dynamic-gradient-bg">
       {/* NAVBAR */}
       <header className={`navbar ${isNavScrolled ? 'scrolled' : ''} ${isNavVisible ? 'visible' : 'hidden'}`}>
-        <div className="navbar-logo">
+        <div className="navbar-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <div className="logo-icon">
-            <span className="logo-h">ح</span>
+            <span className="logo-h">{lang === 'ar' ? 'ح' : 'H'}</span>
           </div>
-          <span className="logo-text">حكايتي</span>
+          <span className="logo-text">{lang === 'ar' ? 'حكايتي' : 'Hekayti'}</span>
         </div>
 
         <nav id="mobile-nav" className={`navbar-links ${mobileMenuOpen ? 'open' : ''}`}>
-          <a href="#about" className="nav-link" onClick={() => setMobileMenuOpen(false)}>من نحن</a>
-          <a href="#how-it-works" className="nav-link" onClick={() => setMobileMenuOpen(false)}>كيف يعمل</a>
-          <a href="#testimonials" className="nav-link" onClick={() => setMobileMenuOpen(false)}>آراء العملاء</a>
-          <a href="#team" className="nav-link" onClick={() => setMobileMenuOpen(false)}>فريق العمل</a>
-          <a href="#contact" className="nav-link" onClick={() => setMobileMenuOpen(false)}>تواصل معنا</a>
+          <a href="#about" className="nav-link" onClick={() => setMobileMenuOpen(false)}>{t.navAbout}</a>
+          <a href="#how-it-works" className="nav-link" onClick={() => setMobileMenuOpen(false)}>{t.navHow}</a>
+          <a href="#testimonials" className="nav-link" onClick={() => setMobileMenuOpen(false)}>{t.navReviews}</a>
+          <a href="#team" className="nav-link" onClick={() => setMobileMenuOpen(false)}>{t.navTeam}</a>
+          <a href="#contact" className="nav-link" onClick={() => setMobileMenuOpen(false)}>{t.navContact}</a>
         </nav>
 
         <div className="navbar-actions">
-          <button type="button" className="btn btn-primary rounded-pill" onClick={goToStoryCreator}>ابدأ بابتكار قصة</button>
+          <button
+            type="button"
+            className="btn btn-outline rounded-pill lang-toggle-btn"
+            onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
+            style={{ margin: '0 5px' }}
+          >
+            {t.langToggle}
+          </button>
+          <button type="button" className="btn btn-primary rounded-pill" onClick={goToStoryCreator}>{t.navCreate}</button>
           <a href="#demo-video" className="btn btn-outline rounded-pill flex-center">
-            شاهد العرض <span className="play-icon">▶</span>
+            {t.navDemo} <span className="play-icon">▶</span>
           </a>
         </div>
 
         <button
           type="button"
           className="burger-menu"
-          aria-label={mobileMenuOpen ? "إغلاق القائمة" : "فتح القائمة"}
+          aria-label={mobileMenuOpen ? (lang === 'ar' ? "إغلاق القائمة" : "Close Menu") : (lang === 'ar' ? "فتح القائمة" : "Open Menu")}
           aria-expanded={mobileMenuOpen}
           aria-controls="mobile-nav"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -337,19 +365,16 @@ export default function App() {
       <main className="hero-section">
         {/* Left: Image */}
         <div className="hero-image-side reveal-scale">
-          <img src={heroSideImg} alt="حكايتي - طفل يقرأ قصته" className="hero-side-img magical-float" />
+          <img src={lang === 'ar' ? heroSideImg : heroSideImgEN} alt={lang === 'ar' ? "حكايتي - طفل يقرأ قصته" : "Hekayti - Child reading story"} className="hero-side-img magical-float" />
         </div>
 
         {/* Right: Text Content */}
         <div className="hero-content reveal-up">
           <h1 className="hero-title-ar">
-            إجعل طفلك بطلاً <br />
-            <span className="text-gradient">لقصته الخاصة</span>
+            {t.heroTitlePart1} <br />
+            <span className="text-gradient">{t.heroTitlePart2}</span>
           </h1>
-          <p className="hero-desc">
-            حكايتي هو دليلك لعالم من السحر والخيال، تطبيق مدعوم بالذكاء الاصطناعي
-            يحول صورة طفلك إلى قصة أطفال عربية مخصصة يكون فيها طفلك هو البطل، مع اختبارات ذكاء تفاعلية بعد كل قصة لتعزيز مهارات التعلم والفهم.
-          </p>
+          <p className="hero-desc">{t.heroDesc}</p>
 
           <div className="hero-buttons shop-badges-only">
             <div className="badge-wrapper">
@@ -367,22 +392,20 @@ export default function App() {
         {/* TILTED MARQUEE TRANSITION */}
         <div className="tilted-marquee-transition">
           <div className="tilted-marquee-track">
-            <span>🚀 قريباً جداً <span className="marquee-star">✦</span> ترقبوا الإطلاق <span className="marquee-star">✦</span> جهزوا أطفالكم لعالم الخيال <span className="marquee-star">✦</span></span>
-            <span>🚀 قريباً جداً <span className="marquee-star">✦</span> ترقبوا الإطلاق <span className="marquee-star">✦</span> جهزوا أطفالكم لعالم الخيال <span className="marquee-star">✦</span></span>
-            <span>🚀 قريباً جداً <span className="marquee-star">✦</span> ترقبوا الإطلاق <span className="marquee-star">✦</span> جهزوا أطفالكم لعالم الخيال <span className="marquee-star">✦</span></span>
-            <span>🚀 قريباً جداً <span className="marquee-star">✦</span> ترقبوا الإطلاق <span className="marquee-star">✦</span> جهزوا أطفالكم لعالم الخيال <span className="marquee-star">✦</span></span>
+            <span>{t.marqueeText}</span>
+            <span>{t.marqueeText}</span>
+            <span>{t.marqueeText}</span>
+            <span>{t.marqueeText}</span>
           </div>
         </div>
         <div className="about-container">
           <div className="about-content reveal-up">
-            <h2 className="section-title about-title">عن <span className="text-gradient">تطبيق حكايتي</span></h2>
-            <p className="about-desc">
-              تطبيق حكايتي هو المنصة الأولى التي تدمج بين خيال الأطفال وقوة الذكاء الاصطناعي لإنشاء قصص فريدة من نوعها. نهدف إلى تغيير طريقة تفاعل الأطفال مع القصص وتحويل وقت الشاشة إلى تجربة قراءة تفاعلية وممتعة. نجعل كل طفل المبتكر والملهم وبطل قصته!
-            </p>
-            <a href="#how-it-works" className="btn btn-outline rounded-pill about-btn">اكتشف المزيد</a>
+            <h2 className="section-title about-title">{lang === 'ar' ? <>عن <span className="text-gradient">تطبيق حكايتي</span></> : <>About <span className="text-gradient">Hekayti App</span></>}</h2>
+            <p className="about-desc">{t.aboutDesc}</p>
+            <a href="#how-it-works" className="btn btn-outline rounded-pill about-btn">{t.aboutMore}</a>
           </div>
           <div className="about-image-wrapper reveal-scale">
-            <img src={aboutImg} alt="عن حكايتي" className="about-main-img magical-float" />
+            <img src={aboutImg} alt={t.aboutTitle} className="about-main-img magical-float" />
           </div>
         </div>
       </section>
@@ -390,67 +413,67 @@ export default function App() {
       {/* PARALLAX SEPARATOR SECTION */}
       <section className="parallax-separator reveal-up" style={{ backgroundImage: `url(${HomeParallaxImg})` }}>
         <div className="parallax-content">
-          <h2>حيث يتحول الخيال إلى حقيقة</h2>
-          <p>امنح طفلك فرصة ليكون بطل كل يوم جديد</p>
+          <h2>{t.parallaxTitle}</h2>
+          <p>{t.parallaxDesc}</p>
         </div>
       </section>
 
       {/* HOW IT WORKS SECTION */}
       <section id="how-it-works" className="how-section" ref={howSectionRef}>
         <div className="section-header reveal-up">
-          <h2 className="section-title">كيف <span className="text-gradient">يعمل التطبيق</span></h2>
-          <p className="section-subtitle">رحلة سحرية من ٥ خطوات تحول طفلك إلى بطل حكايته وتنمّي مهاراته</p>
+          <h2 className="section-title">{lang === 'ar' ? <>كيف <span className="text-gradient">يعمل التطبيق</span></> : <>How <span className="text-gradient">It Works</span></>}</h2>
+          <p className="section-subtitle">{t.howSubtitle}</p>
         </div>
 
         <div className="cards-fan">
 
           <div className="fan-card fan-card-1 reveal-scale">
             <div className="fan-card-img">
-              <img src={uploadPhotoImg} alt="ارفع صورة طفلك" />
+              <img src={uploadPhotoImg} alt={t.step1Title} />
             </div>
-            <div className="fan-card-num">١</div>
+            <div className="fan-card-num">1</div>
             <div className="fan-card-body">
-              <h3>ارفع صورة طفلك</h3>
-              <p>اختر صورة واضحة ليبني الذكاء الاصطناعي شخصيته الكرتونية.</p>
+              <h3>{t.step1Title}</h3>
+              <p>{t.step1Desc}</p>
             </div>
           </div>
 
           <div className="fan-arrow">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: lang === 'en' ? 'rotate(180deg)' : 'none' }}>
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
           </div>
 
           <div className="fan-card fan-card-2 reveal-scale">
             <div className="fan-card-img">
-              <img src={chooseInterestImg} alt="اختر الاهتمامات" />
+              <img src={chooseInterestImg} alt={t.step2Title} />
             </div>
-            <div className="fan-card-num">٢</div>
+            <div className="fan-card-num">2</div>
             <div className="fan-card-body">
-              <h3>اختر الاهتمامات</h3>
-              <p>فضاء، ديناصورات، سحر؟ أنت تحدد مسار المغامرة.</p>
+              <h3>{t.step2Title}</h3>
+              <p>{t.step2Desc}</p>
             </div>
           </div>
 
           <div className="fan-arrow">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: lang === 'en' ? 'rotate(180deg)' : 'none' }}>
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
           </div>
 
           <div className="fan-card fan-card-3 reveal-scale">
             <div className="fan-card-img">
-              <img src={aiGeneratesImg} alt="الذكاء يبتكر" />
+              <img src={aiGeneratesImg} alt={t.step3Title} />
             </div>
-            <div className="fan-card-num">٣</div>
+            <div className="fan-card-num">3</div>
             <div className="fan-card-body">
-              <h3>الذكاء يبتكر</h3>
-              <p>في ثوانٍ ينسج نظامنا قصة ورسوميات بطلها طفلك.</p>
+              <h3>{t.step3Title}</h3>
+              <p>{t.step3Desc}</p>
             </div>
           </div>
 
           <div className="fan-arrow">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: lang === 'en' ? 'rotate(180deg)' : 'none' }}>
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
           </div>
@@ -461,40 +484,39 @@ export default function App() {
                 {/* Empty placeholder for the flying books */}
               </div>
             </div>
-            <div className="fan-card-num">٤</div>
+            <div className="fan-card-num">4</div>
             <div className="fan-card-body">
-              <h3>طفلك يقرأ</h3>
-              <p>استلم القصة جاهزة واجعل طفلك يعيش متعة القراءة.</p>
+              <h3>{t.step4Title}</h3>
+              <p>{t.step4Desc}</p>
             </div>
           </div>
 
           <div className="fan-arrow">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ transform: lang === 'en' ? 'rotate(180deg)' : 'none' }}>
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
           </div>
 
           <div className="fan-card fan-card-5 reveal-scale">
             <div className="fan-card-img">
-              <img src={quizStepImg} alt="اختبار وتعلّم" />
+              <img src={quizStepImg} alt={t.step5Title} />
             </div>
-            <div className="fan-card-num">٥</div>
+            <div className="fan-card-num">5</div>
             <div className="fan-card-body">
-              <h3>اختبر وتعلّم</h3>
-              <p>بعد كل قصة، يوجد اختبار تفاعلي على الأحداث لضمان الفهم وتنمية الذكاء.</p>
+              <h3>{t.step5Title}</h3>
+              <p>{t.step5Desc}</p>
             </div>
           </div>
 
         </div>
       </section>
 
-
       {/* SCROLL-ZOOM BOOK SECTION — gives scroll space */}
       <div id="library" className="scroll-zoom-container" ref={scrollZoomRef}>
         <div className="scroll-zoom-sticky">
           <div className="scroll-zoom-label" ref={bookLabelRef}>
-            <h2 className="section-title">مكتبة <span className="text-gradient">السحر</span></h2>
-            <p className="section-subtitle">إليك لمحة عن القصص المذهلة — مرِّر الماوس فوق الكتب واضغط لتصفحها</p>
+            <h2 className="section-title">{lang === 'ar' ? <>مكتبة <span className="text-gradient">السحر</span></> : <>Library of <span className="text-gradient">Magic</span></>}</h2>
+            <p className="section-subtitle">{t.librarySubtitle}</p>
           </div>
 
           <div className="click-hint">
@@ -503,11 +525,11 @@ export default function App() {
                 <path d="M10 11V6a2 2 0 0 1 2-2 2 2 0 0 1 2 2v5" />
                 <path d="M14 7v3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v3" />
                 <path d="M18 10v4a2 2 0 0 1 2-2 2 2 0 0 1 2 2v5a4 4 0 0 1-4 4h-7a6 6 0 0 1-6-6v-1.5" />
-                <path d="M6 13V8.1a2 2 0 0 1 2-2 2 2 0 0 1 2 2V11" />
+                <path d="M6 13V8.1a2 2 0 0 1 2-2 2 2 0 0 1 2 2v11" />
               </svg>
               <div className="ripple"></div>
             </div>
-            <span>اضغط على قصة لتبدأ القراءة</span>
+            <span>{t.clickHint}</span>
           </div>
         </div>
       </div>
@@ -520,12 +542,16 @@ export default function App() {
             className={`stack-book stack-book-${idx + 1}`}
             role="button"
             tabIndex={0}
-            aria-label={`افتح قصة ${book.title}`}
-            onClick={() => setSelectedBook(book)}
+            aria-label={`Open story ${book.title}`}
+            onClick={() => {
+              // Temporarily disabled opening the book
+              // setSelectedBook(book);
+            }}
             onKeyDown={(event) => {
               if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
-                setSelectedBook(book);
+                // Temporarily disabled opening the book
+                // setSelectedBook(book);
               }
             }}
           >
@@ -533,27 +559,25 @@ export default function App() {
               <img src={book.coverImg} alt={book.title} className="bookshelf-cover-img" />
               <div className="bookshelf-overlay">
                 <h3 className="bookshelf-book-title">{book.title}</h3>
-                <button type="button" className="read-btn">اقرأ الآن</button>
+                <button type="button" className="read-btn">{t.readNow}</button>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-
-
       <section className="parallax-separator reveal-up" style={{ backgroundImage: `url(${dreamyStarsImg})` }}>
         <div className="parallax-content">
-          <h2>وراء كل قصة.. فريق يؤمن بالسحر</h2>
-          <p>تعرف على المبدعين الذين رسموا البصمة الأولى في ذكريات أطفالكم</p>
+          <h2>{t.teamHeaderTitle}</h2>
+          <p>{t.teamHeaderDesc}</p>
         </div>
       </section>
 
       {/* TESTIMONIALS SECTION */}
       <section id="testimonials" className="reviews-section">
         <div className="section-header reveal-up">
-          <h2 className="section-title">آراء <span className="text-gradient">العملاء</span></h2>
-          <p className="section-subtitle">تجارب حقيقية من أولياء أمور استخدموا حكايتي مع أطفالهم</p>
+          <h2 className="section-title">{lang === 'ar' ? <>آراء <span className="text-gradient">العملاء</span></> : <>Customer <span className="text-gradient">Reviews</span></>}</h2>
+          <p className="section-subtitle">{t.reviewsSubtitle}</p>
         </div>
 
         <div className="reviews-marquee-wrapper" dir="ltr">
@@ -566,7 +590,7 @@ export default function App() {
                   {item.sourceLabel}
                 </a>
                 <div className="reviewer">
-                  <img src={item.img} alt={`صورة ${item.name}`} className="reviewer-img" />
+                  <img src={item.img} alt={`Photo of ${item.name}`} className="reviewer-img" />
                   <div className="reviewer-info">
                     <h4>{item.name}</h4>
                     <p>{item.city}</p>
@@ -601,15 +625,13 @@ export default function App() {
       <section id="demo-video" className="demo-section">
         <div className="demo-container reveal-up">
           <div className="demo-content">
-            <h2 className="demo-title">عرض توضيحي</h2>
-            <h3 className="demo-subtitle">يوسف وطفلك الساحرة</h3>
-            <p className="demo-desc">
-              شاهد كيف يتفاعل يوسف مع قصته المخصصة. تجربة ساحرة تجعل القراءة ممتعة وملهمة.
-            </p>
+            <h2 className="demo-title">{t.demoTitle}</h2>
+            <h3 className="demo-subtitle">{t.demoSubtitle}</h3>
+            <p className="demo-desc">{t.demoDesc}</p>
           </div>
           <div className="demo-video-wrapper">
-            <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=800&q=80" alt="عرض توضيحي" className="demo-video-poster" />
-            <button type="button" className="play-button-overlay" aria-label="تشغيل العرض التوضيحي">
+            <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=800&q=80" alt="Demo Video" className="demo-video-poster" />
+            <button type="button" className="play-button-overlay" aria-label={lang === 'ar' ? "تشغيل العرض التوضيحي" : "Play Demo"}>
               <span className="play-btn-circle" aria-hidden="true">▶</span>
             </button>
           </div>
@@ -619,8 +641,8 @@ export default function App() {
       {/* TEAM SECTION (3D Hover Effect + Marquee) */}
       <section id="team" className="team-section">
         <div className="section-header reveal-up">
-          <h2 className="section-title">فريق <span className="text-gradient">العمل</span></h2>
-          <p className="section-subtitle">المبدعون الذين جعلوا عالم حكايتي السحري حقيقة</p>
+          <h2 className="section-title">{lang === 'ar' ? <>فريق <span className="text-gradient">العمل</span></> : <>Our <span className="text-gradient">Team</span></>}</h2>
+          <p className="section-subtitle">{t.teamSubtitle}</p>
         </div>
 
         <div className="team-marquee-wrapper" dir="ltr">
@@ -634,13 +656,13 @@ export default function App() {
                       <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                     </svg>
                   </a>
-                  <img src={member.img} alt={`${member.name} مسطح`} className="team-img-flat" />
+                  <img src={member.img} alt={`${member.name} flat`} className="team-img-flat" />
                   <div className="team-info">
                     <h3>{member.name}</h3>
                     <p>{member.role}</p>
                   </div>
                 </div>
-                <img src={member.img} alt={`${member.name} واقف`} className="team-img-stand" />
+                <img src={member.img} alt={`${member.name} standing`} className="team-img-stand" />
               </div>
             ))}
           </div>
@@ -654,13 +676,13 @@ export default function App() {
                       <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                     </svg>
                   </a>
-                  <img src={member.img} alt={`${member.name} مسطح`} className="team-img-flat" />
+                  <img src={member.img} alt={`${member.name} flat`} className="team-img-flat" />
                   <div className="team-info">
                     <h3>{member.name}</h3>
                     <p>{member.role}</p>
                   </div>
                 </div>
-                <img src={member.img} alt={`${member.name} واقف`} className="team-img-stand" />
+                <img src={member.img} alt={`${member.name} standing`} className="team-img-stand" />
               </div>
             ))}
           </div>
@@ -671,24 +693,22 @@ export default function App() {
       <footer id="contact" className="footer-section">
         <div className="footer-content">
           <div className="footer-brand">
-            <div className="logo-icon">ح</div>
-            <span className="logo-text">حكايتي</span>
-            <p className="footer-brand-desc">
-              نصنع لطفلك ذكريات لا تُنسى من خلال قصص مخصصة بتقنيات الذكاء الاصطناعي لتنمية خياله وحبه للقراءة.
-            </p>
+            <div className="logo-icon">{lang === 'ar' ? 'ح' : 'H'}</div>
+            <span className="logo-text">{lang === 'ar' ? 'حكايتي' : 'Hekayti'}</span>
+            <p className="footer-brand-desc">{t.footerBrandDesc}</p>
           </div>
 
           <div className="footer-links">
-            <h4>روابط هامة</h4>
+            <h4>{t.footerImportantLinks}</h4>
             <ul>
-              <li><a href="#about">من نحن</a></li>
-              <li><a href="#how-it-works">كيف يعمل التطبيق</a></li>
-              <li><a href="#testimonials">آراء العملاء</a></li>
+              <li><a href="#about">{t.navAbout}</a></li>
+              <li><a href="#how-it-works">{t.navHow}</a></li>
+              <li><a href="#testimonials">{t.navReviews}</a></li>
             </ul>
           </div>
 
           <div className="footer-social">
-            <h4>تواصل معنا</h4>
+            <h4>{t.navContact}</h4>
             <div className="social-icons">
               <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" className="social-icon linkedin" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
@@ -706,7 +726,7 @@ export default function App() {
           </div>
 
           <div className="footer-download">
-            <h4>حمل التطبيق</h4>
+            <h4>{t.footerDownloadApp}</h4>
             <div className="store-buttons">
               <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" className="footer-store-badge" />
               <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" className="footer-store-badge" />
@@ -714,10 +734,10 @@ export default function App() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>جميع الحقوق محفوظة © 2026 حكايتي</p>
+          <p>{t.footerCopyright}</p>
           <div className="footer-bottom-links">
-            <a href="#contact">الشروط والأحكام</a>
-            <a href="#contact">سياسة الخصوصية</a>
+            <a href="#contact">{t.footerTerms}</a>
+            <a href="#contact">{t.footerPrivacy}</a>
           </div>
         </div>
       </footer>
@@ -727,7 +747,7 @@ export default function App() {
           className={`book-modal-overlay ${isClosing ? 'is-closing' : ''}`}
           role="dialog"
           aria-modal="true"
-          aria-label={`قراءة قصة ${selectedBook.title}`}
+          aria-label={lang === 'ar' ? `قراءة قصة ${selectedBook.title}` : `Read story ${selectedBook.title}`}
           onClick={(event) => {
             if (event.target === event.currentTarget) {
               handleCloseBook();
@@ -757,7 +777,7 @@ export default function App() {
                 >
                   {activeBookPages.map((pageImg, pageIndex) => (
                     <Page key={`${selectedBook.id}-page-${pageIndex}`}>
-                      <img src={pageImg} alt={`صفحة ${pageIndex + 1} من ${selectedBook.title}`} className="page-image" />
+                      <img src={pageImg} alt={`Page ${pageIndex + 1} of ${selectedBook.title}`} className="page-image" />
                     </Page>
                   ))}
                 </HTMLFlipBook>
@@ -770,3 +790,4 @@ export default function App() {
     </div>
   );
 }
+
