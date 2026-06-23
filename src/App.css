@@ -1428,11 +1428,15 @@ body.menu-open {
 
   /* Show arrows vertically between cards */
   .fan-arrow {
-    transform: rotate(-90deg);
+    transform: none !important;
     margin: 0;
     margin-bottom: 0;
     flex-shrink: 0;
     animation: none !important;
+  }
+
+  .fan-arrow svg {
+    transform: rotate(-90deg) !important;
   }
 }
 
