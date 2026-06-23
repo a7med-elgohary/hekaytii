@@ -117,7 +117,6 @@ body.menu-open {
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(243, 244, 246, 0.6);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
-  direction: rtl; /* Logo on right, buttons on left for RTL Arabic layout */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -145,14 +144,6 @@ body.menu-open {
   width: auto;
   object-fit: contain;
   display: block;
-}
-
-.footer-logo-img {
-  height: 70px;
-  width: auto;
-  object-fit: contain;
-  display: block;
-  margin-bottom: 1rem;
 }
 
 .logo-text {
@@ -219,7 +210,8 @@ body.menu-open {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  direction: ltr; /* Force ltr layout so buttons order is consistent */
+  direction: ltr;
+  /* Force ltr layout so buttons order is consistent */
 }
 
 .navbar-actions .btn {
@@ -686,6 +678,7 @@ body.menu-open {
       opacity: 0;
       transform: translateY(-15px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -974,7 +967,8 @@ body.menu-open {
 
 @media (max-width: 900px) {
   .about-section {
-    padding: 6.5rem 5% 3rem !important; /* Increased top padding to give breathing room from the marquee */
+    padding: 6.5rem 5% 3rem !important;
+    /* Increased top padding to give breathing room from the marquee */
   }
 
   .about-container {
@@ -992,7 +986,8 @@ body.menu-open {
   }
 
   .about-image-wrapper {
-    display: none !important; /* Hide About Us image wrapper on mobile/tablet */
+    display: none !important;
+    /* Hide About Us image wrapper on mobile/tablet */
   }
 }
 
