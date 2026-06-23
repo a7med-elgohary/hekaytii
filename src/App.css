@@ -3251,6 +3251,13 @@ body.menu-open {
   color: #111827;
 }
 
+.footer-logo-img {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+  display: inline-block;
+}
+
 .footer-brand-desc {
   color: #6b7280;
   font-size: 1.05rem;
