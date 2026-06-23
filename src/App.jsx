@@ -55,6 +55,17 @@ export default function App() {
   }, [lang]);
 
   useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.classList.add('menu-open');
+    } else {
+      document.body.classList.remove('menu-open');
+    }
+    return () => {
+      document.body.classList.remove('menu-open');
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
     if (location.state?.newBook) {
       setSelectedBook(location.state.newBook);
       // Clean up the state so it doesn't reopen if the user refreshes the page
@@ -330,35 +341,46 @@ export default function App() {
           <a href="#testimonials" className="nav-link" onClick={() => setMobileMenuOpen(false)}>{t.navReviews}</a>
           <a href="#team" className="nav-link" onClick={() => setMobileMenuOpen(false)}>{t.navTeam}</a>
           <a href="#contact" className="nav-link" onClick={() => setMobileMenuOpen(false)}>{t.navContact}</a>
+          {/* Mobile-only action buttons inside the full screen menu */}
+          <div className="mobile-menu-buttons">
+            <button type="button" className="btn btn-primary rounded-pill" onClick={(e) => { setMobileMenuOpen(false); goToStoryCreator(e); }}>{t.navCreate}</button>
+            <a href="#demo-video" className="btn btn-outline rounded-pill flex-center" onClick={() => setMobileMenuOpen(false)}>
+              {t.navDemo} <span className="play-icon">▶</span>
+            </a>
+          </div>
         </nav>
 
+        {/* Desktop-only action buttons */}
         <div className="navbar-actions">
-          <button
-            type="button"
-            className="btn btn-outline rounded-pill lang-toggle-btn"
-            onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-            style={{ margin: '0 5px' }}
-          >
-            {t.langToggle}
-          </button>
           <button type="button" className="btn btn-primary rounded-pill" onClick={goToStoryCreator}>{t.navCreate}</button>
           <a href="#demo-video" className="btn btn-outline rounded-pill flex-center">
             {t.navDemo} <span className="play-icon">▶</span>
           </a>
         </div>
 
-        <button
-          type="button"
-          className="burger-menu"
-          aria-label={mobileMenuOpen ? (lang === 'ar' ? "إغلاق القائمة" : "Close Menu") : (lang === 'ar' ? "فتح القائمة" : "Open Menu")}
-          aria-expanded={mobileMenuOpen}
-          aria-controls="mobile-nav"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        {/* Mobile Header Actions (Visible on mobile header) */}
+        <div className="mobile-header-actions">
+          <button
+            type="button"
+            className="btn btn-outline rounded-pill lang-toggle-btn"
+            onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
+          >
+            {t.langToggle}
+          </button>
+
+          <button
+            type="button"
+            className={`burger-menu ${mobileMenuOpen ? 'open' : ''}`}
+            aria-label={mobileMenuOpen ? (lang === 'ar' ? "إغلاق القائمة" : "Close Menu") : (lang === 'ar' ? "فتح القائمة" : "Open Menu")}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
       </header>
 
       {/* HERO SECTION */}

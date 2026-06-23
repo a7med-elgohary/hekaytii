@@ -206,10 +206,12 @@ html[lang="en"] .scp-sd-item span {
 }
 
 /* --- Prevent Navbar Overlaps (Best Practice Flex Flow) --- */
-.navbar-links {
-  position: relative !important;
-  left: auto !important;
-  transform: none !important;
+@media (min-width: 1181px) {
+  .navbar-links {
+    position: relative !important;
+    left: auto !important;
+    transform: none !important;
+  }
 }
 
 @media (max-width: 1180px) {
