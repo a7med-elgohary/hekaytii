@@ -25,6 +25,7 @@ import HomeParallaxImg from './assets/Home.png';
 import dreamyStarsImg from "./assets/dreamy_stars.png";
 import bookPage1 from './assets/book_page_1.png';
 import bookPage2 from './assets/book_page_2.png';
+import logoImg from './assets/lOGO.PNG';
 import './App.css';
 import { APP_TRANSLATIONS } from './translations.js';
 
@@ -329,10 +330,7 @@ export default function App() {
       {/* NAVBAR */}
       <header className={`navbar ${isNavScrolled ? 'scrolled' : ''} ${isNavVisible ? 'visible' : 'hidden'}`}>
         <div className="navbar-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-          <div className="logo-icon">
-            <span className="logo-h">{lang === 'ar' ? 'ح' : 'H'}</span>
-          </div>
-          <span className="logo-text">{lang === 'ar' ? 'حكايتي' : 'Hekayti'}</span>
+          <img src={logoImg} alt="Hekayti Logo" className="logo-img" />
         </div>
 
         <nav id="mobile-nav" className={`navbar-links ${mobileMenuOpen ? 'open' : ''}`}>
@@ -352,10 +350,10 @@ export default function App() {
 
         {/* Desktop-only action buttons */}
         <div className="navbar-actions">
-          <button type="button" className="btn btn-primary rounded-pill" onClick={goToStoryCreator}>{t.navCreate}</button>
           <a href="#demo-video" className="btn btn-outline rounded-pill flex-center">
             {t.navDemo} <span className="play-icon">▶</span>
           </a>
+          <button type="button" className="btn btn-primary rounded-pill" onClick={goToStoryCreator}>{t.navCreate}</button>
         </div>
 
         {/* Mobile Header Actions (Visible on mobile header) */}

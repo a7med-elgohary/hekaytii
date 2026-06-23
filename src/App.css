@@ -139,18 +139,11 @@ body.menu-open {
   gap: 0.75rem;
 }
 
-.logo-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 32px;
-  height: 32px;
-  background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
-  border-radius: 8px;
-  color: white;
-  font-weight: 900;
-  font-size: 1.5rem;
-  font-family: 'Tajawal', sans-serif;
+.logo-img {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .logo-text {
@@ -217,6 +210,7 @@ body.menu-open {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  direction: ltr; /* Force ltr layout so buttons order is consistent */
 }
 
 .navbar-actions .btn {
